@@ -29,7 +29,7 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i] != null && uuid.equals(storage[i].uuid)) {
+            if (uuid.equals(storage[i].uuid)) {
                 return storage[i];
             }
         }
@@ -38,9 +38,11 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            storage[i] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
+            if (uuid.equals(storage[i].uuid)) {
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
+                size--;
+            }
         }
     }
 
