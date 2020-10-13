@@ -26,11 +26,11 @@ public class ArrayStorage {
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("Resume " + resume.getUuid() + " already exists");
-        } else if (size == storage.length) {
-            System.out.println("Storage is full");
-        } else {
+        } else if (size < storage.length) {
             storage[size] = resume;
             size++;
+        } else {
+            System.out.println("Storage is full");
         }
     }
 
