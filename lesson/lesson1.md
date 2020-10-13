@@ -78,7 +78,7 @@ r1, r2, r3,..., rn, null, null,..., null
 <----- size ----->
 <------- storage.length (10000) ------->
 ```
-- Проверьте вашу реализацию с помощью классов `com.javaops.webapp.storage.MainArray.main()` и `com.javaops.webapp.storage.MainTestArrayStorage.main()`
+- Проверьте вашу реализацию с помощью классов `com.javaops.webapp.MainArray.main()` и `com.javaops.webapp.MainTestArrayStorage.main()`
 - Изучите дополнительные материалы по IntelliJ IDEA:
   - [Idea Wiki](https://github.com/JavaOPs/topjava/wiki/IDEA) 
   - [Отладка Java кода в IDEA. Основные возможности отладчика](https://youtu.be/Z1BQsf0A4xY)
