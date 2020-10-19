@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
-    public Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
     public Resume get(String uuid) {
@@ -38,10 +38,11 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
-        if (getIndex(resume.getUuid()) != -1) {
+        int index = getIndex(resume.getUuid());
+        if (index != -1) {
             System.out.println("Resume " + resume.getUuid() + " already exists");
         } else if (size < STORAGE_LIMIT) {
-            storage[size] = resume;
+            saveElement(resume, index);
             size++;
         } else {
             System.out.println("Storage is full");
@@ -53,7 +54,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index == -1) {
             System.out.println("Resume " + uuid + " doesn't exist");
         } else {
-            storage[index] = storage[size - 1];
+            deleteElement(index);
             storage[size - 1] = null;
             size--;
         }
@@ -62,10 +63,14 @@ public abstract class AbstractArrayStorage implements Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    abstract void saveElement(Resume resume, int index);
+
+    abstract void deleteElement(int index);
+
     protected abstract int getIndex(String uuid);
+
 }
