@@ -35,9 +35,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(storage.get(UUID_1), storage.get(RESUME_1.getUuid()));
-        Assert.assertEquals(storage.get(UUID_2), storage.get(RESUME_2.getUuid()));
-        Assert.assertEquals(storage.get(UUID_3), storage.get(RESUME_3.getUuid()));
+        Assert.assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
+        Assert.assertEquals(RESUME_2, storage.get(RESUME_2.getUuid()));
+        Assert.assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
     }
 
     @Test
@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         Resume r1 = new Resume(UUID_1);
         storage.update(r1);
-        Assert.assertTrue(r1 == storage.get(UUID_1));
+        Assert.assertSame(r1, storage.get(UUID_1));
     }
 
     @Test
@@ -63,7 +63,7 @@ public abstract class AbstractArrayStorageTest {
     public void save() {
         Assert.assertEquals(3, storage.size());
         storage.save(new Resume(UUID_4));
-        Assert.assertEquals(storage.get(UUID_4), storage.get(RESUME_4.getUuid()));
+        Assert.assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
         Assert.assertEquals(4, storage.size());
     }
 
@@ -88,15 +88,14 @@ public abstract class AbstractArrayStorageTest {
         storage.get("dummy");
     }
 
-    @Test (expected = StorageException.class)
+    @Test(expected = StorageException.class)
     public void saveOverflowStorage() {
         try {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            Assert.fail();
-            System.out.println("Exception happened before the storage reached the Storage Limit");
+            Assert.fail("Exception happened before the storage reached the Storage Limit");
         }
         storage.save(new Resume());
     }
