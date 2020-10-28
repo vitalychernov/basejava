@@ -1,5 +1,6 @@
 package com.javaops.webapp.storage;
 
+import com.javaops.webapp.exception.ExistStorageException;
 import com.javaops.webapp.exception.NotExistStorageException;
 import com.javaops.webapp.exception.StorageException;
 import com.javaops.webapp.model.Resume;
@@ -52,6 +53,11 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertSame(r1, storage.get(UUID_1));
     }
 
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExist() {
+        storage.update(RESUME_4);
+    }
+
     @Test
     public void clear() {
         Assert.assertEquals(3, storage.size());
@@ -67,11 +73,21 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertEquals(4, storage.size());
     }
 
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() {
+        storage.save(RESUME_1);
+    }
+
     @Test
     public void delete() {
         Assert.assertEquals(3, storage.size());
         storage.delete(UUID_3);
         Assert.assertEquals(2, storage.size());
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExist() {
+        storage.delete(RESUME_4.getUuid());
     }
 
     @Test
@@ -89,7 +105,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = StorageException.class)
-    public void saveOverflowStorage() {
+    public void saveOverflow() {
         try {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
