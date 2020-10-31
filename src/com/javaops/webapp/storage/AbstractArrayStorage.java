@@ -1,7 +1,5 @@
 package com.javaops.webapp.storage;
 
-import com.javaops.webapp.exception.ExistStorageException;
-import com.javaops.webapp.exception.NotExistStorageException;
 import com.javaops.webapp.exception.StorageException;
 import com.javaops.webapp.model.Resume;
 
@@ -10,28 +8,21 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+    public Resume doGet(String uuid) {
         return storage[index];
+    }
+
+    public void doUpdate(Resume resume) {
+        storage[index] = resume;
     }
 
     public int size() {
         return size;
-    }
-
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else storage[index] = resume;
     }
 
     public void clear() {
@@ -39,11 +30,8 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else if (size == STORAGE_LIMIT) {
+    public void doSave(Resume resume) {
+        if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             saveElement(resume, index);
@@ -51,15 +39,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
+    public void doDelete(String uuid) {
             deleteElement(index);
             storage[size - 1] = null;
             size--;
-        }
     }
 
     /**
