@@ -3,20 +3,19 @@ package com.javaops.webapp.storage;
 import com.javaops.webapp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    List<Resume> storageList = new ArrayList<>();
+    private List<Resume> storageList = new ArrayList<>();
 
     @Override
-    public Resume doGet(String uuid) {
+    public Resume doGet(Integer index) {
         return storageList.get(index);
     }
 
     @Override
-    public void doUpdate(Resume resume) {
+    public void doUpdate(Resume resume, Integer index) {
         resume = storageList.get(index);
     }
 
@@ -31,24 +30,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume resume) {
+    public void doSave(Resume resume, Integer index) {
         storageList.add(resume);
     }
 
     @Override
-    public void doDelete(String uuid) {
-        Iterator<Resume> iterator = storageList.iterator();
-        while (iterator.hasNext()) {
-            Resume resume = iterator.next();
-            if (resume.getUuid().equals(uuid)) {
-                iterator.remove();
-            }
-        }
+    public void doDelete(Integer index) {
+        storageList.remove(storageList.get(index));
     }
 
     @Override
     public Resume[] getAll() {
-        return storageList.toArray(new Resume[0]);
+        return storageList.toArray(new Resume[storageList.size()]);
     }
 
     protected int getIndex(String uuid) {

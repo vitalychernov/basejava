@@ -6,41 +6,43 @@ import com.javaops.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected int index;
-
     public Resume get(String uuid) {
-        index = getIndex(uuid);
+        int index = getIndex(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
-        return doGet(uuid);
+        return doGet(index);
     }
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index < 0) {
             throw new NotExistStorageException(resume.getUuid());
-        } else doUpdate(resume);
+        } else doUpdate(resume, index);
     }
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
             throw new ExistStorageException(resume.getUuid());
-        } else doSave(resume);
+        } else doSave(resume, index);
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-        } else doDelete(uuid);
+        } else doDelete(index);
     }
 
-    protected abstract void doDelete(String uuid);
-    protected abstract void doSave(Resume resume);
-    protected abstract void doUpdate(Resume resume);
-    protected abstract Resume doGet(String uuid);
+    protected abstract void doDelete(Integer index);
+
+    protected abstract void doSave(Resume resume, Integer index);
+
+    protected abstract void doUpdate(Resume resume, Integer index);
+
+    protected abstract Resume doGet(Integer index);
+
     protected abstract int getIndex(String uuid);
 
 }
