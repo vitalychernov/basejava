@@ -16,7 +16,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public void doUpdate(Resume resume, Integer index) {
-        resume = storageList.get(index);
+        storageList.set(index, resume);
     }
 
     @Override
