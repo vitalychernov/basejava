@@ -7,42 +7,44 @@ import com.javaops.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
+        Object key = getKey(uuid);
+        if (!keyExist(key)) {
             throw new NotExistStorageException(uuid);
         }
-        return doGet(index);
+        return doGet(key);
     }
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
+        Object key = getKey(resume.getUuid());
+        if (!keyExist(key)) {
             throw new NotExistStorageException(resume.getUuid());
-        } else doUpdate(resume, index);
+        } else doUpdate(resume, key);
     }
 
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
+        Object key = getKey(resume.getUuid());
+        if (keyExist(key)) {
             throw new ExistStorageException(resume.getUuid());
-        } else doSave(resume, index);
+        } else doSave(resume, key);
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
+        Object key = getKey(uuid);
+        if (!keyExist(key)) {
             throw new NotExistStorageException(uuid);
-        } else doDelete(index);
+        } else doDelete(key);
     }
 
-    protected abstract void doDelete(Integer index);
+    protected abstract void doDelete(Object key);
 
-    protected abstract void doSave(Resume resume, Integer index);
+    protected abstract void doSave(Resume resume, Object key);
 
-    protected abstract void doUpdate(Resume resume, Integer index);
+    protected abstract void doUpdate(Resume resume, Object key);
 
-    protected abstract Resume doGet(Integer index);
+    protected abstract Resume doGet(Object key);
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getKey(String uuid);
+
+    protected abstract boolean keyExist(Object key);
 
 }

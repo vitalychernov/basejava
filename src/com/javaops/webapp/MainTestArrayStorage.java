@@ -1,14 +1,14 @@
 package com.javaops.webapp;
 
 import com.javaops.webapp.model.Resume;
-import com.javaops.webapp.storage.ListStorage;
+import com.javaops.webapp.storage.MapStorage;
 import com.javaops.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new ListStorage();
+    static final Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");

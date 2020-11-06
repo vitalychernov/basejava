@@ -10,13 +10,13 @@ public class ListStorage extends AbstractStorage {
     private List<Resume> storageList = new ArrayList<>();
 
     @Override
-    public Resume doGet(Integer index) {
-        return storageList.get(index);
+    public Resume doGet(Object index) {
+        return storageList.get((Integer) index);
     }
 
     @Override
-    public void doUpdate(Resume resume, Integer index) {
-        storageList.set(index, resume);
+    public void doUpdate(Resume resume, Object index) {
+        storageList.set((Integer) index, resume);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume resume, Integer index) {
+    public void doSave(Resume resume, Object index) {
         storageList.add(resume);
     }
 
     @Override
-    public void doDelete(Integer index) {
-        storageList.remove(index.intValue());
+    public void doDelete(Object index) {
+        storageList.remove(((Integer) index).intValue());
     }
 
     @Override
@@ -44,12 +44,17 @@ public class ListStorage extends AbstractStorage {
         return storageList.toArray(new Resume[storageList.size()]);
     }
 
-    protected int getIndex(String uuid) {
+    protected Integer getKey(String uuid) {
         for (int i = 0; i < storageList.size(); i++) {
             if (storageList.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return -1;
+        return null;
+    }
+
+    @Override
+    protected boolean keyExist(Object key) {
+        return key != null;
     }
 }
