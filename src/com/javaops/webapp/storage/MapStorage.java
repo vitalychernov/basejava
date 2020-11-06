@@ -2,12 +2,12 @@ package com.javaops.webapp.storage;
 
 import com.javaops.webapp.model.Resume;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
 
-    private Map<String, Resume> storageMap = new HashMap<>();
+    private Map<String, Resume> storageMap = new TreeMap<>();
 
     @Override
     protected void doDelete(Object key) {

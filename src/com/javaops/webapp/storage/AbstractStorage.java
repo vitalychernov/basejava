@@ -6,33 +6,38 @@ import com.javaops.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    public Resume get(String uuid) {
+    private Object keyNotExistStorage(String uuid) {
         Object key = getKey(uuid);
-        if (!keyExist(key)) {
+        if (keyExist(key))
+            throw new ExistStorageException(uuid);
+        return key;
+    }
+
+    private Object keyExistStorage(String uuid) {
+        Object key = getKey(uuid);
+        if (!keyExist(key))
             throw new NotExistStorageException(uuid);
-        }
+        return key;
+    }
+
+    public Resume get(String uuid) {
+        Object key = keyExistStorage(uuid);
         return doGet(key);
     }
 
     public void update(Resume resume) {
-        Object key = getKey(resume.getUuid());
-        if (!keyExist(key)) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else doUpdate(resume, key);
+        Object key = keyExistStorage(resume.getUuid());
+        doUpdate(resume, key);
     }
 
     public void save(Resume resume) {
-        Object key = getKey(resume.getUuid());
-        if (keyExist(key)) {
-            throw new ExistStorageException(resume.getUuid());
-        } else doSave(resume, key);
+        Object key = keyNotExistStorage(resume.getUuid());
+        doSave(resume, key);
     }
 
     public void delete(String uuid) {
-        Object key = getKey(uuid);
-        if (!keyExist(key)) {
-            throw new NotExistStorageException(uuid);
-        } else doDelete(key);
+        Object key = keyExistStorage(uuid);
+        doDelete(key);
     }
 
     protected abstract void doDelete(Object key);
