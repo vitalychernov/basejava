@@ -4,6 +4,9 @@ import com.javaops.webapp.exception.ExistStorageException;
 import com.javaops.webapp.exception.NotExistStorageException;
 import com.javaops.webapp.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     private Object keyNotExistStorage(String uuid) {
@@ -39,6 +42,15 @@ public abstract class AbstractStorage implements Storage {
         Object key = keyExistStorage(uuid);
         doDelete(key);
     }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = doGetAll();
+        Collections.sort(list);
+        return list;
+    }
+
+    protected abstract List<Resume> doGetAll();
 
     protected abstract void doDelete(Object key);
 

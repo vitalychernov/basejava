@@ -40,8 +40,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storageList.toArray(new Resume[storageList.size()]);
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(storageList);
     }
 
     protected Integer getKey(String uuid) {
