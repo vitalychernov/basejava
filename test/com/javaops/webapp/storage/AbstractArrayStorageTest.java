@@ -20,6 +20,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         } catch (StorageException e) {
             Assert.fail("Exception happened before the storage reached the Storage Limit");
         }
-        storage.save(new Resume("NameOverflow"));
+        storage.save(new Resume("Overflow"));
     }
 }

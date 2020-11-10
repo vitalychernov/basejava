@@ -1,5 +1,6 @@
 package com.javaops.webapp.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -31,8 +32,8 @@ public class Resume implements Comparable<Resume> {
 
         Resume resume = (Resume) o;
 
-        if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
-        return fullName != null ? fullName.equals(resume.fullName) : resume.fullName == null;
+        if (!Objects.equals(uuid, resume.uuid)) return false;
+        return Objects.equals(fullName, resume.fullName);
     }
 
     @Override

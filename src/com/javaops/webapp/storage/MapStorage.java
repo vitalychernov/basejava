@@ -4,38 +4,38 @@ import com.javaops.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
 
     private Map<String, Resume> storageMap = new HashMap<>();
 
     @Override
-    protected void doDelete(Object key) {
-        storageMap.remove((String) key);
+    protected void doDelete(String searchKey) {
+        storageMap.remove(searchKey);
     }
 
     @Override
-    protected void doSave(Resume resume, Object key) {
-        storageMap.put((String) key, resume);
+    protected void doSave(Resume resume, String searchKey) {
+        storageMap.put(searchKey, resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object key) {
+    protected void doUpdate(Resume resume, String searchKey) {
         storageMap.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return storageMap.get((String) key);
+    protected Resume doGet(String searchKey) {
+        return storageMap.get(searchKey);
     }
 
     @Override
-    protected Object getKey(String key) {
-        return key;
+    protected String getKey(String searchKey) {
+        return searchKey;
     }
 
     @Override
-    protected boolean keyExist(Object key) {
-        return storageMap.containsKey((String) key);
+    protected boolean isExist(String searchKey) {
+        return storageMap.containsKey(searchKey);
     }
 
     @Override
