@@ -3,15 +3,15 @@ package com.javaops.webapp.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class WorkExperienceEducationSection extends Section {
+public class OrganizationSection extends AbstractSection {
 
-    private final List<Organization> organizations;
+    private final List<Experience> organizations;
 
-    public WorkExperienceEducationSection(List<Organization> organizations) {
+    public OrganizationSection(List<Experience> organizations) {
         this.organizations = organizations;
     }
 
-    public WorkExperienceEducationSection(Organization... organizations) {
+    public OrganizationSection(Experience... organizations) {
         this(Arrays.asList(organizations));
     }
 
@@ -20,7 +20,7 @@ public class WorkExperienceEducationSection extends Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WorkExperienceEducationSection that = (WorkExperienceEducationSection) o;
+        OrganizationSection that = (OrganizationSection) o;
 
         return organizations != null ? organizations.equals(that.organizations) : that.organizations == null;
     }
@@ -30,7 +30,7 @@ public class WorkExperienceEducationSection extends Section {
         return organizations != null ? organizations.hashCode() : 0;
     }
 
-    public List<Organization> getOrganizations() {
+    public List<Experience> getOrganizations() {
         return organizations;
     }
 

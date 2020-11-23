@@ -3,7 +3,7 @@ package com.javaops.webapp.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class ListSection extends Section {
+public class ListSection extends AbstractSection {
 
     private final List<String> items;
 

@@ -21,14 +21,14 @@ public class ResumeTestData {
         resume.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce"));
 
-        resume.addSection(SectionType.EXPERIENCE, new WorkExperienceEducationSection(new Organization(
+        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Experience(
                 "Java Online Projects",
                 "https://javaops.ru/",
                 YearMonth.of(2013, 10),
                 null,
                 "Автор проекта",
                 "Создание, организация и проведение Java онлайн проектов и стажировок.")));
-        resume.addSection(SectionType.EDUCATION, new WorkExperienceEducationSection(new Organization(
+        resume.addSection(SectionType.EDUCATION, new OrganizationSection(new Experience(
                 "Coursera",
                 "https://www.coursera.org/learn/progfun1",
                 YearMonth.of(2013, 3),
@@ -37,8 +37,8 @@ public class ResumeTestData {
                 null)));
 
         System.out.println(resume.getFullName());
-        System.out.println(resume.getContacts());
-        System.out.println(resume.getSections());
+        System.out.println(resume.getContacts(ContactType.PHONE));
+        System.out.println(resume.getSections(SectionType.EXPERIENCE));
 
     }
 }

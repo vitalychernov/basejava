@@ -1,6 +1,6 @@
 package com.javaops.webapp.model;
 
-public class TextSection extends Section {
+public class TextSection extends AbstractSection {
 
     private final String text;
 

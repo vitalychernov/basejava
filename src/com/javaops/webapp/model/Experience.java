@@ -2,7 +2,7 @@ package com.javaops.webapp.model;
 
 import java.time.YearMonth;
 
-public class Organization {
+public class Experience {
 
     private final Link webSite;
     private final YearMonth startDate;
@@ -10,7 +10,7 @@ public class Organization {
     private final String title;
     private final String description;
 
-    public Organization(String name, String url, YearMonth startDate, YearMonth endDate, String title, String description) {
+    public Experience(String name, String url, YearMonth startDate, YearMonth endDate, String title, String description) {
         this.webSite = new Link(name, url);
         this.startDate = startDate;
         this.endDate = endDate;
