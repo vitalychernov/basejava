@@ -1,13 +1,13 @@
 package com.javaops.webapp.model;
 
 public enum ContactType {
-    PHONE("Phone"),
-    SKYPE("Skype"),
-    EMAIL("Email"),
-    LINKEDIN("LinkedIn"),
-    GITHUB("Github"),
-    STACKOVERFLOW("Stackoverflow"),
-    PERSONALSITE("Personal Site");
+    PHONE("Тел.: "),
+    SKYPE("Skype: "),
+    EMAIL("Почта: "),
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль GitHub"),
+    STACKOVERFLOW("Профиль Stackoverflow"),
+    PERSONALSITE("Домашняя страница");
 
     private final String title;
 

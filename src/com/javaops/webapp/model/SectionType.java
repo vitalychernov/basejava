@@ -1,13 +1,12 @@
 package com.javaops.webapp.model;
 
 public enum SectionType {
-    POSITION("Position"),
-    PERSONAL("Personal"),
-    OBJECTIVE("Objective"),
-    ACHIEVEMENT("Achievement"),
-    QUALIFICATIONS("Qualifications"),
-    EXPERIENCE("Experience"),
-    EDUCATION("Education");
+    POSITION("Позиция"),
+    PERSONAL("Личные качества"),
+    ACHIEVEMENT("Достижения"),
+    QUALIFICATIONS("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("Образование");
 
     private final String title;
 

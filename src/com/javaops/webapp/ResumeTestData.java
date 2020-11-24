@@ -9,13 +9,13 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("Григорий Кислин");
 
-        resume.addContact(ContactType.PHONE, "Тел.: +7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "Skype: grigory.kislin");
-        resume.addContact(ContactType.EMAIL, "Почта: gkislin@yandex.ru");
-        resume.addContact(ContactType.LINKEDIN, new Link("Профиль LinkedIn", "https://www.linkedin.com/in/gkislin"));
-        resume.addContact(ContactType.GITHUB, new Link("Профиль GitHub", "https://github.com/gkislin"));
-        resume.addContact(ContactType.STACKOVERFLOW, new Link("Профиль Stackoverflow", "https://stackoverflow.com/users/548473"));
-        resume.addContact(ContactType.PERSONALSITE, new Link("Домашняя страница", "http://gkislin.ru/"));
+        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        resume.addContact(ContactType.SKYPE, "grigory.kislin");
+        resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        resume.addContact(ContactType.LINKEDIN, new Link(ContactType.LINKEDIN.getTitle(), "https://www.linkedin.com/in/gkislin"));
+        resume.addContact(ContactType.GITHUB, new Link(ContactType.GITHUB.getTitle(), "https://github.com/gkislin"));
+        resume.addContact(ContactType.STACKOVERFLOW, new Link(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
+        resume.addContact(ContactType.PERSONALSITE, new Link(ContactType.PERSONALSITE.getTitle(), "http://gkislin.ru/"));
 
         resume.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         resume.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
@@ -39,18 +39,18 @@ public class ResumeTestData {
                 null)));
 
         System.out.println(resume.getFullName());
-        System.out.println(resume.getContacts(ContactType.PHONE));
-        System.out.println(resume.getContacts(ContactType.SKYPE));
-        System.out.println(resume.getContacts(ContactType.EMAIL));
+        System.out.println(ContactType.PHONE.getTitle() + resume.getContacts(ContactType.PHONE));
+        System.out.println(ContactType.SKYPE.getTitle() + resume.getContacts(ContactType.SKYPE));
+        System.out.println(ContactType.EMAIL.getTitle() + resume.getContacts(ContactType.EMAIL));
         System.out.println(resume.getContacts(ContactType.LINKEDIN));
         System.out.println(resume.getContacts(ContactType.GITHUB));
         System.out.println(resume.getContacts(ContactType.STACKOVERFLOW));
         System.out.println(resume.getContacts(ContactType.PERSONALSITE));
 
-        System.out.println(resume.getSections(SectionType.POSITION));
-        System.out.println(resume.getSections(SectionType.PERSONAL));
-        System.out.println(resume.getSections(SectionType.ACHIEVEMENT));
-        System.out.println(resume.getSections(SectionType.EXPERIENCE));
-        System.out.println(resume.getSections(SectionType.EDUCATION));
+        System.out.println(SectionType.POSITION.getTitle() + "\n" + resume.getSections(SectionType.POSITION));
+        System.out.println(SectionType.PERSONAL.getTitle() + "\n" + resume.getSections(SectionType.PERSONAL));
+        System.out.println(SectionType.ACHIEVEMENT.getTitle() + "\n" + resume.getSections(SectionType.ACHIEVEMENT));
+        System.out.println(SectionType.EXPERIENCE.getTitle() + "\n" + resume.getSections(SectionType.EXPERIENCE));
+        System.out.println(SectionType.EDUCATION.getTitle() + "\n" + resume.getSections(SectionType.EDUCATION));
     }
 }
