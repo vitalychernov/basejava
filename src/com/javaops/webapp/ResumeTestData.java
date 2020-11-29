@@ -2,7 +2,7 @@ package com.javaops.webapp;
 
 import com.javaops.webapp.model.*;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
 
 public class ResumeTestData {
 
@@ -23,20 +23,20 @@ public class ResumeTestData {
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
         resume.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Родной русский, английский \"upper intermediate\""));
-        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Experience(
+        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
                 "Java Online Projects",
-                "https://javaops.ru/",
-                YearMonth.of(2013, 10),
+                "https://javaops.ru/", new Organization.Position(
+                LocalDate.of(2013, 10, 1),
                 null,
                 "Автор проекта",
-                "Создание, организация и проведение Java онлайн проектов и стажировок.")));
-        resume.addSection(SectionType.EDUCATION, new OrganizationSection(new Experience(
+                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
+        resume.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
                 "Coursera",
-                "https://www.coursera.org/learn/progfun1",
-                YearMonth.of(2013, 3),
-                YearMonth.of(2013, 5),
+                "https://www.coursera.org/learn/progfun1", new Organization.Position(
+                LocalDate.of(2013, 3, 1),
+                LocalDate.of(2013, 5, 1),
                 "Functional Programming Principles in Scala\" by Martin Odersky",
-                null)));
+                null))));
 
         System.out.println(resume.getFullName());
         System.out.println(ContactType.PHONE.getTitle() + resume.getContacts(ContactType.PHONE));

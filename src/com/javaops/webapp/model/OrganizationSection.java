@@ -2,16 +2,18 @@ package com.javaops.webapp.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection {
 
-    private final List<Experience> organizations;
+    private final List<Organization> organizations;
 
-    public OrganizationSection(List<Experience> organizations) {
+    public OrganizationSection(List<Organization> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
     }
 
-    public OrganizationSection(Experience... organizations) {
+    public OrganizationSection(Organization... organizations) {
         this(Arrays.asList(organizations));
     }
 
@@ -22,15 +24,15 @@ public class OrganizationSection extends AbstractSection {
 
         OrganizationSection that = (OrganizationSection) o;
 
-        return organizations != null ? organizations.equals(that.organizations) : that.organizations == null;
+        return organizations.equals(that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return organizations != null ? organizations.hashCode() : 0;
+        return organizations.hashCode();
     }
 
-    public List<Experience> getOrganizations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 
