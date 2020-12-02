@@ -1,5 +1,6 @@
 package com.javaops.webapp.storage;
 
+import com.javaops.webapp.ResumeTestData;
 import com.javaops.webapp.exception.ExistStorageException;
 import com.javaops.webapp.exception.NotExistStorageException;
 import com.javaops.webapp.model.Resume;
@@ -20,7 +21,7 @@ public abstract class AbstractStorageTest {
     private final static String UUID_3 = "uuid3";
     private final static String UUID_4 = "uuid4";
 
-    private final static Resume RESUME_1 = new Resume(UUID_1, "Name1");
+    private final static Resume RESUME_1 = ResumeTestData.create(UUID_1, "Григорий Кислин");
     private final static Resume RESUME_2 = new Resume(UUID_2, "Name2");
     private final static Resume RESUME_3 = new Resume(UUID_3, "Name3");
     private final static Resume RESUME_4 = new Resume(UUID_4, "Name4");
