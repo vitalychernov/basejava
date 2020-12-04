@@ -15,7 +15,7 @@ public class ResumeTestData {
         resume.addContact(ContactType.LINKEDIN, new Link(ContactType.LINKEDIN.getTitle(), "https://www.linkedin.com/in/gkislin"));
         resume.addContact(ContactType.GITHUB, new Link(ContactType.GITHUB.getTitle(), "https://github.com/gkislin"));
         resume.addContact(ContactType.STACKOVERFLOW, new Link(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
-        resume.addContact(ContactType.PERSONALSITE, new Link(ContactType.PERSONALSITE.getTitle(), "http://gkislin.ru/"));
+        resume.addContact(ContactType.WEBSITE, new Link(ContactType.WEBSITE.getTitle(), "http://gkislin.ru/"));
 
         resume.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         resume.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
@@ -45,7 +45,7 @@ public class ResumeTestData {
         System.out.println(resume.getContacts(ContactType.LINKEDIN));
         System.out.println(resume.getContacts(ContactType.GITHUB));
         System.out.println(resume.getContacts(ContactType.STACKOVERFLOW));
-        System.out.println(resume.getContacts(ContactType.PERSONALSITE));
+        System.out.println(resume.getContacts(ContactType.WEBSITE));
 
         System.out.println(SectionType.POSITION.getTitle() + "\n" + resume.getSections(SectionType.POSITION));
         System.out.println(SectionType.PERSONAL.getTitle() + "\n" + resume.getSections(SectionType.PERSONAL));
