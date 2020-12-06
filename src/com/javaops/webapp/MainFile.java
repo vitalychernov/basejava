@@ -29,18 +29,18 @@ public class MainFile {
 //            throw new RuntimeException(e);
 //        }
 
-        File[] files = new File("../basejava").listFiles();
-        showFiles(files);
+        File[] files = new File("..\\basejava\\src").listFiles();
+        showFiles(files, "");
     }
 
-    public static void showFiles(File[] files) {
+    public static void showFiles(File[] files, String tab) {
         Objects.requireNonNull(files, "files must not be null");
         for (File file : files) {
             if (file.isDirectory()) {
-                System.out.println("Directory: " + file.getName());
-                showFiles(file.listFiles());
+                System.out.println(tab + "Directory: " + file.getName());
+                showFiles(file.listFiles(), tab + "\t");
             } else if (file.isFile()) {
-                System.out.println("\t File: " + file.getName());
+                System.out.println(tab + "File: " + file.getName());
             }
         }
     }

@@ -34,14 +34,6 @@ public class FileStorage extends AbstractStorage<File> {
         return list;
     }
 
-    private File[] getFiles() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("No available files", null);
-        }
-        return files;
-    }
-
     @Override
     protected void doDelete(File file) {
         if (!file.delete()) {
@@ -97,5 +89,13 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         return getFiles().length;
+    }
+
+    private File[] getFiles() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("No available files", null);
+        }
+        return files;
     }
 }
