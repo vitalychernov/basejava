@@ -6,56 +6,66 @@ import java.time.LocalDate;
 
 public class ResumeTestData {
 
-    public static Resume create(String uuid, String fullName) {
-        Resume resume = new Resume(uuid, fullName);
+    public final static String U1 = "uuid1";
+    public final static String U2 = "uuid2";
+    public final static String U3 = "uuid3";
+    public final static String U4 = "uuid4";
 
-        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "grigory.kislin");
-        resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        resume.addContact(ContactType.LINKEDIN, new Link(ContactType.LINKEDIN.getTitle(), "https://www.linkedin.com/in/gkislin"));
-        resume.addContact(ContactType.GITHUB, new Link(ContactType.GITHUB.getTitle(), "https://github.com/gkislin"));
-        resume.addContact(ContactType.STACKOVERFLOW, new Link(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
-        resume.addContact(ContactType.WEBSITE, new Link(ContactType.WEBSITE.getTitle(), "http://gkislin.ru/"));
+    public static Resume R1;
+    public static Resume R2;
+    public static Resume R3;
+    public static Resume R4;
 
-        resume.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        resume.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        resume.addSection(SectionType.ACHIEVEMENT, new ListSection("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
+    static {
+        R1 = new Resume(U1, "Григорий Кислин");
+        R2 = new Resume(U2, "Name2");
+        R3 = new Resume(U3, "Name3");
+        R4 = new Resume(U4, "Name4");
+
+        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        R1.addContact(ContactType.SKYPE, "grigory.kislin");
+        R1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        R1.addContact(ContactType.LINKEDIN, new Link(ContactType.LINKEDIN.getTitle(), "https://www.linkedin.com/in/gkislin"));
+        R1.addContact(ContactType.GITHUB, new Link(ContactType.GITHUB.getTitle(), "https://github.com/gkislin"));
+        R1.addContact(ContactType.STACKOVERFLOW, new Link(ContactType.STACKOVERFLOW.getTitle(), "https://stackoverflow.com/users/548473"));
+        R1.addContact(ContactType.WEBSITE, new Link(ContactType.WEBSITE.getTitle(), "http://gkislin.ru/"));
+
+        R1.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        R1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
-        resume.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Родной русский, английский \"upper intermediate\""));
-        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
+        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
                 "Java Online Projects",
                 "https://javaops.ru/", new Organization.Position(
                 LocalDate.of(2013, 10, 1),
                 null,
                 "Автор проекта",
                 "Создание, организация и проведение Java онлайн проектов и стажировок."))));
-        resume.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
+        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
                 "Coursera",
                 "https://www.coursera.org/learn/progfun1", new Organization.Position(
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
                 "Functional Programming Principles in Scala\" by Martin Odersky",
                 null))));
-
-        System.out.println(resume.getFullName());
-        System.out.println(ContactType.PHONE.getTitle() + resume.getContacts(ContactType.PHONE));
-        System.out.println(ContactType.SKYPE.getTitle() + resume.getContacts(ContactType.SKYPE));
-        System.out.println(ContactType.EMAIL.getTitle() + resume.getContacts(ContactType.EMAIL));
-        System.out.println(resume.getContacts(ContactType.LINKEDIN));
-        System.out.println(resume.getContacts(ContactType.GITHUB));
-        System.out.println(resume.getContacts(ContactType.STACKOVERFLOW));
-        System.out.println(resume.getContacts(ContactType.WEBSITE));
-
-        System.out.println(SectionType.POSITION.getTitle() + "\n" + resume.getSections(SectionType.POSITION));
-        System.out.println(SectionType.PERSONAL.getTitle() + "\n" + resume.getSections(SectionType.PERSONAL));
-        System.out.println(SectionType.ACHIEVEMENT.getTitle() + "\n" + resume.getSections(SectionType.ACHIEVEMENT));
-        System.out.println(SectionType.EXPERIENCE.getTitle() + "\n" + resume.getSections(SectionType.EXPERIENCE));
-        System.out.println(SectionType.EDUCATION.getTitle() + "\n" + resume.getSections(SectionType.EDUCATION));
-        return resume;
     }
 
     public static void main(String[] args) {
-        create("UUID_1", "Григорий Кислин");
+        System.out.println(R1.getFullName());
+        System.out.println(ContactType.PHONE.getTitle() + R1.getContacts(ContactType.PHONE));
+        System.out.println(ContactType.SKYPE.getTitle() + R1.getContacts(ContactType.SKYPE));
+        System.out.println(ContactType.EMAIL.getTitle() + R1.getContacts(ContactType.EMAIL));
+        System.out.println(R1.getContacts(ContactType.LINKEDIN));
+        System.out.println(R1.getContacts(ContactType.GITHUB));
+        System.out.println(R1.getContacts(ContactType.STACKOVERFLOW));
+        System.out.println(R1.getContacts(ContactType.WEBSITE));
+
+        System.out.println(SectionType.POSITION.getTitle() + "\n" + R1.getSections(SectionType.POSITION));
+        System.out.println(SectionType.PERSONAL.getTitle() + "\n" + R1.getSections(SectionType.PERSONAL));
+        System.out.println(SectionType.ACHIEVEMENT.getTitle() + "\n" + R1.getSections(SectionType.ACHIEVEMENT));
+        System.out.println(SectionType.EXPERIENCE.getTitle() + "\n" + R1.getSections(SectionType.EXPERIENCE));
+        System.out.println(SectionType.EDUCATION.getTitle() + "\n" + R1.getSections(SectionType.EDUCATION));
     }
 }

@@ -19,15 +19,15 @@ public abstract class AbstractStorageTest {
 
     protected Storage storage;
 
-    private final static String UUID_1 = "uuid1";
-    private final static String UUID_2 = "uuid2";
-    private final static String UUID_3 = "uuid3";
-    private final static String UUID_4 = "uuid4";
+    private final static String UUID_1 = ResumeTestData.U1;
+    private final static String UUID_2 = ResumeTestData.U2;
+    private final static String UUID_3 = ResumeTestData.U3;
+    private final static String UUID_4 = ResumeTestData.U4;
 
-    private final static Resume RESUME_1 = ResumeTestData.create(UUID_1, "Григорий Кислин");
-    private final static Resume RESUME_2 = ResumeTestData.create(UUID_2, "Name2");
-    private final static Resume RESUME_3 = ResumeTestData.create(UUID_3, "Name3");
-    private final static Resume RESUME_4 = ResumeTestData.create(UUID_4, "Name4");
+    private final static Resume RESUME_1 = ResumeTestData.R1;
+    private final static Resume RESUME_2 = ResumeTestData.R2;
+    private final static Resume RESUME_3 = ResumeTestData.R3;
+    private final static Resume RESUME_4 = ResumeTestData.R4;
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -60,9 +60,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume r1 = ResumeTestData.create(UUID_1, "New Name");
-        storage.update(r1);
-        Assert.assertEquals(r1, storage.get(UUID_1));
+        Resume newResume = new Resume(UUID_1, "New Name");
+        storage.update(newResume);
+        Assert.assertEquals(newResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -80,7 +80,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void save() {
         Assert.assertEquals(3, storage.size());
-        storage.save(ResumeTestData.create(UUID_4, "Name4"));
+        storage.save(RESUME_4);
         Assert.assertEquals(RESUME_4, storage.get(UUID_4));
         Assert.assertEquals(4, storage.size());
     }

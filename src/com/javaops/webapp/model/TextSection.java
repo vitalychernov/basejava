@@ -5,7 +5,10 @@ import java.util.Objects;
 public class TextSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
-    private final String text;
+    private String text;
+
+    public TextSection() {
+    }
 
     public TextSection(String text) {
         Objects.requireNonNull(text, "text must not be null");
@@ -20,15 +23,13 @@ public class TextSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         TextSection that = (TextSection) o;
-
         return text.equals(that.text);
     }
 
     @Override
     public int hashCode() {
-        return text.hashCode();
+        return Objects.hash(text);
     }
 
     @Override
