@@ -26,6 +26,7 @@ public class DataStreamSerializer implements Serialization {
             for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
                 SectionType key = entry.getKey();
                 AbstractSection section = entry.getValue();
+                dos.writeUTF(key.name());
                 switch (key) {
                     case POSITION, PERSONAL -> dos.writeUTF(((TextSection) section).getText());
                     case ACHIEVEMENT, QUALIFICATIONS -> {
@@ -94,12 +95,12 @@ public class DataStreamSerializer implements Serialization {
                             List<Organization.Position> positions = new ArrayList<>();
                             int positionSize = dis.readInt();
                             for (int k = 0; k < positionSize; k++) {
-                                String description = dis.readUTF();
+//                                String description = dis.readUTF();
                                 positions.add(new Organization.Position(
                                         LocalDate.parse(dis.readUTF()),
                                         dis.readUTF().equals("null") ? null : LocalDate.parse(dis.readUTF()),
                                         dis.readUTF(),
-                                        dis.readUTF().equals("null") ? null : description
+                                        dis.readUTF().equals("null") ? null : dis.readUTF()
                                 ));
                             }
                             organizations.add(new Organization(name, url, positions));
