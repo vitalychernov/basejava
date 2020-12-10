@@ -1,6 +1,6 @@
 package com.javaops.webapp.storage;
 
-import com.javaops.webapp.storage.serialization.JsonStreamSerializer;
+import com.javaops.webapp.storage.serializer.JsonStreamSerializer;
 
 public class JsonPathStorageTest extends AbstractStorageTest {
 

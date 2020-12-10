@@ -1,4 +1,4 @@
-package com.javaops.webapp.storage.serialization;
+package com.javaops.webapp.storage.serializer;
 
 import com.javaops.webapp.model.*;
 import com.javaops.webapp.util.XmlParser;

@@ -4,10 +4,10 @@ public enum ContactType {
     PHONE("Тел.: "),
     SKYPE("Skype: "),
     EMAIL("Почта: "),
-    LINKEDIN("Профиль LinkedIn"),
-    GITHUB("Профиль GitHub"),
-    STACKOVERFLOW("Профиль Stackoverflow"),
-    WEBSITE("Домашняя страница");
+    LINKEDIN("Профиль LinkedIn "),
+    GITHUB("Профиль GitHub "),
+    STACKOVERFLOW("Профиль Stackoverflow "),
+    WEBSITE("Домашняя страница ");
 
     private final String title;
 

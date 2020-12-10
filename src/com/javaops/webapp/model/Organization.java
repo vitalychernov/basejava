@@ -27,9 +27,21 @@ public class Organization implements Serializable {
         this(new Link(name, url), Arrays.asList(positions));
     }
 
+    public Organization(String name, String url, List<Position> positions) {
+        this(new Link(name, url), positions);
+    }
+
     public Organization(Link webSite, List<Position> positions) {
         this.webSite = webSite;
         this.positions = positions;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public Link getWebSite() {
+        return webSite;
     }
 
     @Override
@@ -73,6 +85,38 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
+            this.description = description;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
             this.description = description;
         }
 
