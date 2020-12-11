@@ -40,7 +40,6 @@ public class ResumeTestData {
                 "Java Online Projects",
                 "https://javaops.ru/", new Organization.Position(
                 LocalDate.of(2013, 10, 1),
-                null,
                 "Автор проекта",
                 "Создание, организация и проведение Java онлайн проектов и стажировок."))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(

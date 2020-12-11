@@ -48,13 +48,9 @@ public class DataStreamSerializer implements Serialization {
                             dos.writeInt(positions.size());
                             for (Organization.Position position : positions) {
                                 dos.writeUTF(position.getStartDate().toString());
-                                if (position.getEndDate() != null) {
-                                    dos.writeUTF(position.getEndDate().toString());
-                                } else dos.writeUTF("null");
+                                dos.writeUTF(position.getEndDate().toString());
                                 dos.writeUTF(position.getTitle());
-                                if (position.getDescription() != null) {
-                                    dos.writeUTF(position.getDescription());
-                                } else dos.writeUTF("null");
+                                dos.writeUTF(position.getDescription());
                             }
                         }
                     }
@@ -95,12 +91,11 @@ public class DataStreamSerializer implements Serialization {
                             List<Organization.Position> positions = new ArrayList<>();
                             int positionSize = dis.readInt();
                             for (int k = 0; k < positionSize; k++) {
-//                                String description = dis.readUTF();
                                 positions.add(new Organization.Position(
                                         LocalDate.parse(dis.readUTF()),
-                                        dis.readUTF().equals("null") ? null : LocalDate.parse(dis.readUTF()),
+                                        LocalDate.parse(dis.readUTF()),
                                         dis.readUTF(),
-                                        dis.readUTF().equals("null") ? null : dis.readUTF()
+                                        dis.readUTF()
                                 ));
                             }
                             organizations.add(new Organization(name, url, positions));
