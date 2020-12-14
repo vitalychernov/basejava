@@ -5,6 +5,7 @@ import com.javaops.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +17,12 @@ public class DataStreamSerializer implements Serialization {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
             Map<ContactType, String> contacts = resume.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            writeWithException(contacts.entrySet(), dos, entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
-            }
+            });
             Map<SectionType, AbstractSection> sections = resume.getSections();
-            dos.writeInt(sections.size());
-            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+            writeWithException(sections.entrySet(), dos, entry -> {
                 SectionType key = entry.getKey();
                 AbstractSection section = entry.getValue();
                 dos.writeUTF(key.name());
@@ -38,24 +37,21 @@ public class DataStreamSerializer implements Serialization {
                     }
                     case EXPERIENCE, EDUCATION -> {
                         List<Organization> organizations = ((OrganizationSection) section).getOrganizations();
-                        dos.writeInt(organizations.size());
-                        for (Organization organization : organizations) {
+                        writeWithException(organizations, dos, organization -> {
                             dos.writeUTF(organization.getWebSite().getName());
-                            if (organization.getWebSite().getUrl() != null) {
-                                dos.writeUTF(organization.getWebSite().getUrl());
-                            } else dos.writeUTF("null");
+                            String url = organization.getWebSite().getUrl();
+                            dos.writeUTF(url == null ? "null" : url);
                             List<Organization.Position> positions = organization.getPositions();
-                            dos.writeInt(positions.size());
-                            for (Organization.Position position : positions) {
+                            writeWithException(positions, dos, position -> {
                                 dos.writeUTF(position.getStartDate().toString());
                                 dos.writeUTF(position.getEndDate().toString());
                                 dos.writeUTF(position.getTitle());
                                 dos.writeUTF(position.getDescription());
-                            }
-                        }
+                            });
+                        });
                     }
                 }
-            }
+            });
         }
     }
 
@@ -107,4 +103,16 @@ public class DataStreamSerializer implements Serialization {
             return resume;
         }
     }
+
+    private <T> void writeWithException(Collection<T> collection, DataOutputStream dos, Writer<T> writer) throws IOException {
+        dos.writeInt(collection.size());
+        for (T item : collection) {
+            writer.write(item);
+        }
+    }
+
+    private interface Writer<T> {
+        void write(T t) throws IOException;
+    }
 }
+
