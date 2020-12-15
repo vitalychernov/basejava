@@ -44,7 +44,7 @@ public class ResumeTestData {
                 "Создание, организация и проведение Java онлайн проектов и стажировок."))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
                 "Coursera",
-                "https://www.coursera.org/learn/progfun1", new Organization.Position(
+                null, new Organization.Position(
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
                 "Functional Programming Principles in Scala\" by Martin Odersky",
