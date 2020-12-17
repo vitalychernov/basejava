@@ -2,27 +2,31 @@ package com.javaops.webapp;
 
 public class DeadLock {
     public static void main(String[] args) {
+        final String lock0 = "lock0";
         final String lock1 = "lock1";
-        final String lock2 = "lock2";
-        deadLock(lock1, lock2);
-        deadLock(lock2, lock1);
+        deadLock(lock0, lock1);
+        deadLock(lock1, lock0);
     }
 
-    private static void deadLock(Object lock1, Object lock2) {
+    private static void deadLock(Object lock0, Object lock1) {
         new Thread(() -> {
-            System.out.println("Thread waiting for " + lock1);
-            synchronized (lock1) {
-                System.out.println("Thread holding " + lock1);
+            print("Waiting", lock0);
+            synchronized (lock0) {
+                print("Holding", lock0);
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Thread waiting for " + lock2);
-                synchronized (lock2) {
-                    System.out.println("Thread holding " + lock2);
+                print("Waiting", lock1);
+                synchronized (lock1) {
+                    print("Holding", lock1);
                 }
             }
         }).start();
+    }
+
+    private static void print(String name, Object lock) {
+        System.out.println(Thread.currentThread().getName() + " " + name + " " + lock);
     }
 }
