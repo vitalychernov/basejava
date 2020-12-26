@@ -45,7 +45,7 @@ public class SqlStorage implements Storage {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?, ?)")) {
             ps.setString(1, resume.getUuid());
-            ps.setString(1, resume.getFullName());
+            ps.setString(2, resume.getFullName());
             ps.execute();
         } catch (SQLException e) {
             throw new StorageException(e);
@@ -86,9 +86,9 @@ public class SqlStorage implements Storage {
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM resume r ORDER BY full_name,uuid")) {
             ResultSet rs = ps.executeQuery();
             List<Resume> list = new ArrayList<>();
-            if (!rs.next()) {
-                throw new NotExistStorageException(rs.getString("uuid"));
-            }
+//            if (!rs.next()) {
+//                throw new NotExistStorageException(rs.getString("uuid"));
+//            }
             while (rs.next()) {
                 list.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
             }
