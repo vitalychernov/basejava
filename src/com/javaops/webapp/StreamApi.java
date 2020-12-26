@@ -27,9 +27,8 @@ public class StreamApi {
                 .stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-        System.out.println(sum);
         return integers.stream()
-                .filter(sum % 2 == 0 ? (i -> i % 2 == 0) : i -> i % 2 != 0)
+                .filter(sum % 2 == 0 ? (i -> i % 2 == 0) : (i -> i % 2 != 0))
                 .collect(Collectors.toList());
     }
 }

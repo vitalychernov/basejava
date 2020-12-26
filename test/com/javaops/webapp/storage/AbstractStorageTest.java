@@ -1,5 +1,6 @@
 package com.javaops.webapp.storage;
 
+import com.javaops.webapp.Config;
 import com.javaops.webapp.ResumeTestData;
 import com.javaops.webapp.exception.ExistStorageException;
 import com.javaops.webapp.exception.NotExistStorageException;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public abstract class AbstractStorageTest {
 
-    protected final static File STORAGE_DIR = new File("C:\\Users\\vchernov\\Documents\\Programming\\JavaOps\\basejava\\storage");
+    protected final static File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
 

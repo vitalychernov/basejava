@@ -1,8 +1,8 @@
 package com.javaops.webapp;
 
-import com.javaops.webapp.model.*;
-
-import java.time.LocalDate;
+import com.javaops.webapp.model.ContactType;
+import com.javaops.webapp.model.Resume;
+import com.javaops.webapp.model.SectionType;
 
 public class ResumeTestData {
 
@@ -22,7 +22,7 @@ public class ResumeTestData {
         R3 = new Resume(U3, "Name3");
         R4 = new Resume(U4, "Name4");
 
-        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+/*        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
         R1.addContact(ContactType.SKYPE, "grigory.kislin");
         R1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
         R1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
@@ -48,7 +48,7 @@ public class ResumeTestData {
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
                 "Functional Programming Principles in Scala\" by Martin Odersky",
-                null))));
+                null))));*/
     }
 
     public static void main(String[] args) {
