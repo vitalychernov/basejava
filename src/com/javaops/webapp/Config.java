@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class Config {
@@ -36,7 +37,7 @@ public class Config {
             STORAGE = new SqlStorage(props.getProperty("db.url"),
                     props.getProperty("db.user"),
                     props.getProperty("db.password"));
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             throw new IllegalArgumentException("Invalid config file " + PROPS.getAbsolutePath());
         }
     }
