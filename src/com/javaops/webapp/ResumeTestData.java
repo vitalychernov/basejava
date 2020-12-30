@@ -4,12 +4,14 @@ import com.javaops.webapp.model.ContactType;
 import com.javaops.webapp.model.Resume;
 import com.javaops.webapp.model.SectionType;
 
+import java.util.UUID;
+
 public class ResumeTestData {
 
-    public final static String U1 = "uuid1";
-    public final static String U2 = "uuid2";
-    public final static String U3 = "uuid3";
-    public final static String U4 = "uuid4";
+    public final static String U1 = UUID.randomUUID().toString();
+    public final static String U2 = UUID.randomUUID().toString();
+    public final static String U3 = UUID.randomUUID().toString();
+    public final static String U4 = UUID.randomUUID().toString();
 
     public static Resume R1;
     public static Resume R2;

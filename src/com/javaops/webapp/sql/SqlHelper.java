@@ -27,7 +27,7 @@ public class SqlHelper {
              PreparedStatement ps = connection.prepareStatement(sql)) {
             return aBlockOfCode.executeSpecific(ps);
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw StorageSqlException.executeSqlException(e);
         }
     }
 

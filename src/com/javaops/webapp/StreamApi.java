@@ -11,7 +11,7 @@ public class StreamApi {
         int[] values = {1, 1, 9, 3, 5, 4, 4, 1, 6};
         System.out.println(minValue(values));
 
-        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 9, 3, 5, 4, 4, 1, 6));
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 9, 3, 5, 4, 4, 1, 6));
         System.out.println(oddOrEven(list));
     }
 
@@ -28,7 +28,7 @@ public class StreamApi {
                 .mapToInt(Integer::intValue)
                 .sum();
         return integers.stream()
-                .filter(sum % 2 == 0 ? (i -> i % 2 == 0) : (i -> i % 2 != 0))
+                .filter(i -> (i % 2 != sum % 2))
                 .collect(Collectors.toList());
     }
 }
