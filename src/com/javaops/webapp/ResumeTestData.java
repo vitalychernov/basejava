@@ -24,14 +24,14 @@ public class ResumeTestData {
         R3 = new Resume(U3, "Name3");
         R4 = new Resume(U4, "Name4");
 
-/*        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
         R1.addContact(ContactType.SKYPE, "grigory.kislin");
         R1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
         R1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         R1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         R1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
         R1.addContact(ContactType.WEBSITE, "http://gkislin.ru/");
-
+/*
         R1.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
@@ -50,7 +50,8 @@ public class ResumeTestData {
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
                 "Functional Programming Principles in Scala\" by Martin Odersky",
-                null))));*/
+                null))));
+*/
     }
 
     public static void main(String[] args) {
