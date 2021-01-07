@@ -59,7 +59,8 @@ public class SqlStorage implements Storage {
 
                 psContacts.setString(1, uuid);
                 ResultSet rsContacts = psContacts.executeQuery();
-                doGet(resume, rsContacts);
+                while (rsContacts.next())
+                    doGet(resume, rsContacts);
                 return resume;
             }
         });
@@ -90,7 +91,9 @@ public class SqlStorage implements Storage {
             }
             try (PreparedStatement psContacts = connection.prepareStatement("SELECT * FROM contact")) {
                 ResultSet rsContacts = psContacts.executeQuery();
-                doGet(resumes.get(rsContacts.getString("resume_uuid")), rsContacts);
+                while (rsContacts.next()) {
+                    doGet(resumes.get(rsContacts.getString("resume_uuid")), rsContacts);
+                }
             }
             return new ArrayList<>(resumes.values());
         });
@@ -125,9 +128,9 @@ public class SqlStorage implements Storage {
     }
 
     private void doGet(Resume resume, ResultSet rsContacts) throws SQLException {
-        while (rsContacts.next()) {
-            String cType = rsContacts.getString("type");
-            String value = rsContacts.getString("value");
+        String cType = rsContacts.getString("type");
+        String value = rsContacts.getString("value");
+        if (value != null) {
             resume.addContact(ContactType.valueOf(cType), value);
         }
     }
