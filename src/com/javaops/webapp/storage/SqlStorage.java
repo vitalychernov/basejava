@@ -28,11 +28,10 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
-            sqlHelper.execute("DELETE FROM contact WHERE resume_uuid=?", ps -> {
+            try (PreparedStatement ps = connection.prepareStatement("DELETE FROM contact WHERE resume_uuid=?")) {
                 ps.setString(1, resume.getUuid());
                 ps.execute();
-                return null;
-            });
+            }
             insertContact(resume, connection);
             return null;
         });
@@ -66,8 +65,9 @@ public class SqlStorage implements Storage {
 
                 psContacts.setString(1, uuid);
                 ResultSet rsContacts = psContacts.executeQuery();
-                while (rsContacts.next())
+                while (rsContacts.next()) {
                     doGet(resume, rsContacts);
+                }
                 return resume;
             }
         });
