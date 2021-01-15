@@ -1,8 +1,6 @@
 package com.javaops.webapp;
 
-import com.javaops.webapp.model.ContactType;
-import com.javaops.webapp.model.Resume;
-import com.javaops.webapp.model.SectionType;
+import com.javaops.webapp.model.*;
 
 import java.util.UUID;
 
@@ -31,27 +29,26 @@ public class ResumeTestData {
         R1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         R1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
         R1.addContact(ContactType.WEBSITE, "http://gkislin.ru/");
-/*
+
         R1.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Родной русский, английский \"upper intermediate\""));
-        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
-                "Java Online Projects",
-                "https://javaops.ru/", new Organization.Position(
-                LocalDate.of(2013, 10, 1),
-                "Автор проекта",
-                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
-        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
-                "Coursera",
-                null, new Organization.Position(
-                LocalDate.of(2013, 3, 1),
-                LocalDate.of(2013, 5, 1),
-                "Functional Programming Principles in Scala\" by Martin Odersky",
-                null))));
-*/
+//        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
+//                "Java Online Projects",
+//                "https://javaops.ru/", new Organization.Position(
+//                LocalDate.of(2013, 10, 1),
+//                "Автор проекта",
+//                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
+//        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
+//                "Coursera",
+//                null, new Organization.Position(
+//                LocalDate.of(2013, 3, 1),
+//                LocalDate.of(2013, 5, 1),
+//                "Functional Programming Principles in Scala\" by Martin Odersky",
+//                null))));
     }
 
     public static void main(String[] args) {
