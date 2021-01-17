@@ -182,45 +182,31 @@ public class SqlStorage implements Storage {
                         value = str;
                         value = value.substring(0, value.length() - 1);
                     }
-                    case EXPERIENCE -> {
+                    case EXPERIENCE, EDUCATION -> {
                     }
-                    case EDUCATION -> {
-                    }
-                };
-//                if (section instanceof TextSection) {
-//                    value = ((TextSection) section).getText();
-//                } else if (section instanceof ListSection) {
-//                    String str = "";
-//                    for (String s : ((ListSection) section).getItems()) {
-//                        if (s.trim().length() > 0) {
-//                            str = str.concat(s).concat("\n");
-//                        }
-//                    }
-//                    value = str;
-//                    value = value.substring(0, value.length() - 1);
-//                }
-                    ps.setString(3, value);
-                    ps.addBatch();
                 }
-                ps.executeBatch();
+                ps.setString(3, value);
+                ps.addBatch();
             }
-        }
-
-        private void createSection (ResultSet rs, Resume resume) throws SQLException {
-            AbstractSection section;
-            SectionType type = SectionType.valueOf(rs.getString("type"));
-            section = switch (type) {
-                case POSITION, PERSONAL -> new TextSection(rs.getString("value"));
-                case ACHIEVEMENT, QUALIFICATIONS -> new ListSection(new ArrayList<>(Arrays.asList(rs.getString("value").split("\n"))));
-                case EXPERIENCE, EDUCATION -> new OrganizationSection();
-            };
-            resume.addSection(type, section);
-        }
-
-        private void doDelete (Resume resume, Connection connection, String s) throws SQLException {
-            try (PreparedStatement ps = connection.prepareStatement(s)) {
-                ps.setString(1, resume.getUuid());
-                ps.execute();
-            }
+            ps.executeBatch();
         }
     }
+
+    private void createSection(ResultSet rs, Resume resume) throws SQLException {
+        AbstractSection section;
+        SectionType type = SectionType.valueOf(rs.getString("type"));
+        section = switch (type) {
+            case POSITION, PERSONAL -> new TextSection(rs.getString("value"));
+            case ACHIEVEMENT, QUALIFICATIONS -> new ListSection(new ArrayList<>(Arrays.asList(rs.getString("value").split("\n"))));
+            case EXPERIENCE, EDUCATION -> new OrganizationSection();
+        };
+        resume.addSection(type, section);
+    }
+
+    private void doDelete(Resume resume, Connection connection, String s) throws SQLException {
+        try (PreparedStatement ps = connection.prepareStatement(s)) {
+            ps.setString(1, resume.getUuid());
+            ps.execute();
+        }
+    }
+}
