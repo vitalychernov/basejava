@@ -53,32 +53,31 @@ public class SqlStorage implements Storage {
     @Override
     public Resume get(String uuid) {
         return sqlHelper.transactionalExecute(connection -> {
-            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM resume WHERE uuid=?");
-                 PreparedStatement psContacts = connection.prepareStatement("SELECT * FROM contact WHERE resume_uuid=?");
-                 PreparedStatement psSections = connection.prepareStatement("SELECT * FROM section WHERE resume_uuid=?")) {
+            Resume resume;
 
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM resume WHERE uuid=?")) {
                 ps.setString(1, uuid);
                 ResultSet rs = ps.executeQuery();
                 if (!rs.next()) {
                     throw new NotExistStorageException(uuid);
                 }
-                Resume resume = new Resume(uuid, rs.getString("full_name"));
-
-                psContacts.setString(1, uuid);
-                ResultSet rsContacts = psContacts.executeQuery();
-                while (rsContacts.next()) {
-                    doGet(resume, rsContacts);
-                }
-
-                psSections.setString(1, uuid);
-                ResultSet rsSections = psSections.executeQuery();
-
-                while (rsSections.next()) {
-                    createSection(rsSections, resume);
-                }
-
-                return resume;
+                resume = new Resume(uuid, rs.getString("full_name"));
             }
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM contact WHERE resume_uuid=?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    doGet(resume, rs);
+                }
+            }
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM section WHERE resume_uuid=?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    createSection(rs, resume);
+                }
+            }
+            return resume;
         });
     }
 
@@ -105,17 +104,16 @@ public class SqlStorage implements Storage {
                     resumes.put(uuid, new Resume(uuid, rs.getString("full_name")));
                 }
             }
-            try (PreparedStatement psContacts = connection.prepareStatement("SELECT * FROM contact")) {
-                ResultSet rsContacts = psContacts.executeQuery();
-                while (rsContacts.next()) {
-                    doGet(resumes.get(rsContacts.getString("resume_uuid")), rsContacts);
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM contact")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    doGet(resumes.get(rs.getString("resume_uuid")), rs);
                 }
             }
-
-            try (PreparedStatement psSections = connection.prepareStatement("SELECT * FROM section")) {
-                ResultSet rsSections = psSections.executeQuery();
-                while (rsSections.next()) {
-                    createSection(rsSections, resumes.get(rsSections.getString("resume_uuid")));
+            try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM section")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    createSection(rs, resumes.get(rs.getString("resume_uuid")));
                 }
             }
             return new ArrayList<>(resumes.values());
@@ -143,9 +141,9 @@ public class SqlStorage implements Storage {
         return null;
     }
 
-    private void doGet(Resume resume, ResultSet rsContacts) throws SQLException {
-        String cType = rsContacts.getString("type");
-        String value = rsContacts.getString("value");
+    private void doGet(Resume resume, ResultSet rs) throws SQLException {
+        String cType = rs.getString("type");
+        String value = rs.getString("value");
         if (value != null) {
             resume.addContact(ContactType.valueOf(cType), value);
         }
@@ -172,6 +170,7 @@ public class SqlStorage implements Storage {
 
                 AbstractSection section = entry.getValue();
                 String value = null;
+
                 if (section instanceof TextSection) {
                     value = ((TextSection) section).getText();
                 } else if (section instanceof ListSection) {
