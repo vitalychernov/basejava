@@ -172,16 +172,7 @@ public class SqlStorage implements Storage {
                 SectionType type = entry.getKey();
                 switch (type) {
                     case POSITION, PERSONAL -> value = ((TextSection) section).getText();
-                    case ACHIEVEMENT, QUALIFICATIONS -> {
-                        String str = "";
-                        for (String s : ((ListSection) section).getItems()) {
-                            if (s.trim().length() > 0) {
-                                str = str.concat(s).concat("\n");
-                            }
-                        }
-                        value = str;
-                        value = value.substring(0, value.length() - 1);
-                    }
+                    case ACHIEVEMENT, QUALIFICATIONS -> value = String.join("\n", ((ListSection) section).getItems());
                     case EXPERIENCE, EDUCATION -> {
                     }
                 }
