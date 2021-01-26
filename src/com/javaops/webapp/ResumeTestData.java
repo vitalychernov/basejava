@@ -2,6 +2,7 @@ package com.javaops.webapp;
 
 import com.javaops.webapp.model.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ResumeTestData {
@@ -36,19 +37,19 @@ public class ResumeTestData {
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Родной русский, английский \"upper intermediate\""));
-//        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
-//                "Java Online Projects",
-//                "https://javaops.ru/", new Organization.Position(
-//                LocalDate.of(2013, 10, 1),
-//                "Автор проекта",
-//                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
-//        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
-//                "Coursera",
-//                null, new Organization.Position(
-//                LocalDate.of(2013, 3, 1),
-//                LocalDate.of(2013, 5, 1),
-//                "Functional Programming Principles in Scala\" by Martin Odersky",
-//                null))));
+        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
+                "Java Online Projects",
+                "https://javaops.ru/", new Organization.Position(
+                LocalDate.of(2013, 10, 1),
+                "Автор проекта",
+                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
+        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
+                "Coursera",
+                null, new Organization.Position(
+                LocalDate.of(2013, 3, 1),
+                LocalDate.of(2013, 5, 1),
+                "Functional Programming Principles in Scala\" by Martin Odersky",
+                null))));
     }
 
     public static void main(String[] args) {

@@ -1,6 +1,8 @@
 <%@ page import="com.javaops.webapp.model.TextSection" %>
 <%@ page import="com.javaops.webapp.model.ListSection" %>
 <%@ page import="com.javaops.webapp.model.OrganizationSection" %>
+<%@ page import="com.javaops.webapp.model.Organization" %>
+<%@ page import="com.javaops.webapp.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="с" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -52,8 +54,35 @@
                 </c:forEach>
             </c:if>
         </tr>
+        <tr>
+            <c:if test="${type == 'EXPERIENCE' || type == 'EDUCATION'}">
+            <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>">
+        <tr>
+            <td>
+                <c:choose>
+                    <c:when test="${empty org.webSite.url}"><h3>${org.webSite.name}</h3></c:when>
+                    <c:otherwise>
+                        <h3><a href="${org.webSite.url}">${org.webSite.name}</a></h3>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </tr>
+        <c:forEach var="position" items="${org.positions}">
+            <jsp:useBean id="position" type="com.javaops.webapp.model.Organization.Position"/>
+            <tr>
+                <td>
+                    <%=HtmlUtil.formatDates(position)%>
+                </td>
+                <td>
+                    <b>${position.title}</b><br>${position.description}
+                </td>
+            </tr>
+        </c:forEach>
+        </c:forEach>
+        </c:if>
     </table>
     </c:forEach>
+    <br>
     <button onclick="window.history.back()">Back</button>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
