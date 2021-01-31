@@ -13,34 +13,32 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public <T> T execute(String sql, SqlExecutor<T> aBlockOfCode) {
-        try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            return aBlockOfCode.executeSpecific(ps);
+    public void execute(String sql) {
+        execute(sql, PreparedStatement::execute);
+    }
+
+    public <T> T execute(String sql, SqlExecutor<T> executor) {
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            return executor.execute(ps);
         } catch (SQLException e) {
-            throw StorageSqlException.executeSqlException(e);
+            throw ExceptionUtil.convertException(e);
         }
     }
 
     public <T> T transactionalExecute(SqlTransaction<T> executor) {
-        try (Connection connection = connectionFactory.getConnection()) {
+        try (Connection conn = connectionFactory.getConnection()) {
             try {
-                connection.setAutoCommit(false);
-                T res = executor.execute(connection);
-                connection.commit();
+                conn.setAutoCommit(false);
+                T res = executor.execute(conn);
+                conn.commit();
                 return res;
             } catch (SQLException e) {
-                connection.rollback();
-                throw StorageSqlException.executeSqlException(e);
+                conn.rollback();
+                throw ExceptionUtil.convertException(e);
             }
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
-
-    @FunctionalInterface
-    public interface SqlExecutor<T> {
-        T executeSpecific(PreparedStatement ps) throws SQLException;
-    }
 }
-

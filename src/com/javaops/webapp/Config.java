@@ -10,41 +10,38 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-
-    //    private final static File PROPS = new File("config\\resumes.properties");
     private static final File PROPS = new File(getHomeDir(), "config\\resumes.properties");
-    private final static Config INSTANCE = new Config();
-    private final File STORAGE_DIR;
-    private final Storage STORAGE;
+    private static final Config INSTANCE = new Config();
+
+    private final File storageDir;
+    private final Storage storage;
 
     public static Config get() {
         return INSTANCE;
-    }
-
-    public File getStorageDir() {
-        return STORAGE_DIR;
-    }
-
-    public Storage getStorage() {
-        return STORAGE;
     }
 
     private Config() {
         try (InputStream is = new FileInputStream(PROPS)) {
             Properties props = new Properties();
             props.load(is);
-            STORAGE_DIR = new File(props.getProperty("storage.dir"));
-            STORAGE = new SqlStorage(props.getProperty("db.url"),
-                    props.getProperty("db.user"),
-                    props.getProperty("db.password"));
+            storageDir = new File(props.getProperty("storage.dir"));
+            storage = new SqlStorage(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
         } catch (IOException e) {
-            throw new IllegalArgumentException("Invalid config file " + PROPS.getAbsolutePath());
+            throw new IllegalStateException("Invalid config file " + PROPS.getAbsolutePath());
         }
     }
 
+    public File getStorageDir() {
+        return storageDir;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
     private static File getHomeDir() {
-        String property = System.getProperty("homeDir");
-        File homeDir = new File(property == null ? "." : property);
+        String prop = System.getProperty("homeDir");
+        File homeDir = new File(prop == null ? "." : prop);
         if (!homeDir.isDirectory()) {
             throw new IllegalStateException(homeDir + " is not directory");
         }
