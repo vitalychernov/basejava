@@ -2,8 +2,6 @@ package com.javaops.webapp.model;
 
 public enum ContactType {
     PHONE("Тел."),
-    MOBILE("Мобильный"),
-    HOME_PHONE("Домашний тел."),
     SKYPE("Skype") {
         @Override
         public String toHtml0(String value) {
@@ -13,7 +11,7 @@ public enum ContactType {
     EMAIL("Почта") {
         @Override
         public String toHtml0(String value) {
-            return getTitle() + ": " + toLink("mailto:" + value, value);
+            return toLink("mailto:" + value, value);
         }
     },
     LINKEDIN("Профиль LinkedIn") {
