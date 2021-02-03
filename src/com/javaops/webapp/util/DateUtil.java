@@ -2,6 +2,7 @@ package com.javaops.webapp.util;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
@@ -17,5 +18,11 @@ public class DateUtil {
             return "";
         }
         return date.equals(LocalDate.now()) ? "По настоящее время" : date.format(DATE_TIME_FORMATTER);
+    }
+
+    public static LocalDate parse(String date) {
+        if (HtmlUtil.isEmpty(date) || "Сейчас".equals(date)) return LocalDate.now();
+        YearMonth yearMonth = YearMonth.parse(date, DATE_TIME_FORMATTER);
+        return LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), 1);
     }
 }

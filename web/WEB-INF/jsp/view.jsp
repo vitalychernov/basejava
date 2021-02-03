@@ -1,7 +1,7 @@
 <%@ page import="com.javaops.webapp.model.TextSection" %>
 <%@ page import="com.javaops.webapp.model.ListSection" %>
 <%@ page import="com.javaops.webapp.model.OrganizationSection" %>
-<%@ page import="com.javaops.webapp.util.HTMLUtil" %>
+<%@ page import="com.javaops.webapp.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -71,7 +71,7 @@
                         <jsp:useBean id="position" type="com.javaops.webapp.model.Organization.Position"/>
                         <tr>
                             <td>
-                                <%=HTMLUtil.formatDates(position)%>
+                                <%=HtmlUtil.formatDates(position)%>
                             </td>
                         </tr>
                         <tr>
