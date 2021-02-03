@@ -1,6 +1,7 @@
 <%@page import="java.lang.String" %>
 <%@ page import="com.javaops.webapp.model.*" %>
 <%@ page import="com.javaops.webapp.util.DateUtil" %>
+<%@ page import="com.javaops.webapp.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -15,35 +16,40 @@
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="uuid" value="${resume.uuid}">
-        <h1>Имя:</h1>
         <dl>
-            <input type="text" name="fullName" size=55 value="${resume.fullName}">
+            <dt>Имя:</dt>
+            <dd><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
         </dl>
-        <h2>Контакты:</h2>
+        <h3>Контакты:</h3>
         <c:forEach var="type" items="<%=ContactType.values()%>">
             <dl>
                 <dt>${type.title}</dt>
                 <dd><input type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
             </dl>
         </c:forEach>
-        <hr>
+        <h3>Секции:</h3>
         <c:forEach var="type" items="<%=SectionType.values()%>">
-            <c:set var="section" value="${resume.getSection(type)}"/>
-            <jsp:useBean id="section" type="com.javaops.webapp.model.AbstractSection"/>
-            <h2><a>${type.title}</a></h2>
+            <jsp:useBean id="type" type="com.javaops.webapp.model.SectionType"/>
+            ${type.title}
             <c:choose>
-                <c:when test="${type=='POSITION'}">
-                    <input type='text' name='${type}' size=75 value='<%=section%>'>
-                </c:when>
-                <c:when test="${type=='PERSONAL'}">
-                    <textarea name='${type}' cols=75 rows=5><%=section%></textarea>
+                <c:when test="${type=='POSITION' || type == 'PERSONAL'}">
+                    <dl>
+                        <dd>
+                            <input type="text" name="${type.name()}" size="100"
+                                   value="<%=HtmlUtil.getText(type, resume)%>"/>
+                        </dd>
+                    </dl>
                 </c:when>
                 <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                    <textarea name='${type}' cols=75
-                              rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
+                    <dl>
+                        <dd>
+                        <textarea name='${type.name()}' cols=91
+                                  rows=5><%=HtmlUtil.getItems(type, resume)%></textarea>
+                        </dd>
+                    </dl>
                 </c:when>
                 <c:when test="${type=='EXPERIENCE' || type=='EDUCATION'}">
-                    <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>"
+                    <c:forEach var="org" items="<%=HtmlUtil.getOrganizations(type, resume)%>"
                                varStatus="counter">
                         <dl>
                             <dt>Название учереждения:</dt>
@@ -87,6 +93,7 @@
                 </c:when>
             </c:choose>
         </c:forEach>
+
         <button type="submit">Сохранить</button>
         <button onclick="window.history.back()">Отменить</button>
     </form>
