@@ -52,11 +52,11 @@
                     <c:forEach var="org" items="<%=HtmlUtil.getOrganizations(type, resume)%>"
                                varStatus="counter">
                         <dl>
-                            <dt>Название учереждения:</dt>
+                            <dt>Название учреждения:</dt>
                             <dd><input type="text" name='${type}' size=100 value="${org.webSite.name}"></dd>
                         </dl>
                         <dl>
-                            <dt>Сайт учереждения:</dt>
+                            <dt>Сайт учреждения:</dt>
                             <dd><input type="text" name='${type}url' size=100 value="${org.webSite.url}"></dd>
                             </dd>
                         </dl>
@@ -93,9 +93,8 @@
                 </c:when>
             </c:choose>
         </c:forEach>
-
         <button type="submit">Сохранить</button>
-        <button onclick="window.history.back()">Отменить</button>
+        <button type="reset" onclick="window.history.go(-1)">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
