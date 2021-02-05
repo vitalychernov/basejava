@@ -24,7 +24,6 @@
         </c:forEach>
     <p>
 
-    <hr>
     <table>
         <c:forEach var="sectionEntry" items="${resume.sections}">
             <jsp:useBean id="sectionEntry"
@@ -85,6 +84,8 @@
             </c:if>
         </c:forEach>
     </table>
+    <br/>
+    <button onclick="window.history.back()">Назад</button>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

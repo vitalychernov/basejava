@@ -3,6 +3,7 @@ package com.javaops.webapp.web;
 import com.javaops.webapp.Config;
 import com.javaops.webapp.model.*;
 import com.javaops.webapp.storage.Storage;
+import com.javaops.webapp.util.DateUtil;
 import com.javaops.webapp.util.HtmlUtil;
 
 import javax.servlet.ServletConfig;
@@ -39,37 +40,51 @@ public class ResumeServlet extends HttpServlet {
             }
         }
         for (SectionType type : SectionType.values()) {
-            String parameters = request.getParameter(type.name());
-            if (parameters == null) {
-                continue;
-            }
-            parameters = parameters.replaceAll("\r", "");
-            List<String> notNullValuesList = new ArrayList<>();
-            for (String x : parameters.split("\n")) {
-                if (x.trim().length() > 0) {
-                    notNullValuesList.add(x);
+            String value = request.getParameter(type.name());
+            String[] values = request.getParameterValues(type.name());
+
+            String notNullValue = value.replaceAll("\r", "");
+            List<String> notNullValues = new ArrayList<>();
+            for (String s : notNullValue.split("\n")) {
+                if (s.trim().length() > 0) {
+                    notNullValues.add(s);
                 }
             }
-            if (notNullValuesList.size() == 0) {
+
+            if (HtmlUtil.isEmpty(value) && values.length < 2) {
                 resume.getSections().remove(type);
-                continue;
             }
             switch (type) {
-                case POSITION:
-                case PERSONAL:
-                    resume.addSection(type, new TextSection(parameters));
-                    break;
-                case ACHIEVEMENT:
-                case QUALIFICATIONS:
-                    resume.addSection(type, new ListSection(notNullValuesList));
-                case EDUCATION:
-                case EXPERIENCE:
-                    break;
+                case POSITION, PERSONAL -> resume.addSection(type, new TextSection(value));
+                case ACHIEVEMENT, QUALIFICATIONS -> resume.addSection(type, new ListSection(notNullValues));
+                case EDUCATION, EXPERIENCE -> {
+                    List<Organization> orgs = new ArrayList<>();
+                    String[] urls = request.getParameterValues(type.name() + "url");
+                    for (int i = 0; i < values.length; i++) {
+                        String name = values[i];
+                        if (!HtmlUtil.isEmpty(name)) {
+                            List<Organization.Position> positions = new ArrayList<>();
+                            String pfx = type.name() + i;
+                            String[] startDates = request.getParameterValues(pfx + "startDate");
+                            String[] endDates = request.getParameterValues(pfx + "endDate");
+                            String[] titles = request.getParameterValues(pfx + "title");
+                            String[] descriptions = request.getParameterValues(pfx + "description");
+                            for (int j = 0; j < titles.length; j++) {
+                                if (!HtmlUtil.isEmpty(titles[j])) {
+                                    positions.add(new Organization.Position(DateUtil.parse(startDates[j]), DateUtil.parse(endDates[j]), titles[j], descriptions[j]));
+                                }
+                            }
+                            orgs.add(new Organization(new Link(name, urls[i]), positions));
+                        }
+                    }
+                    resume.addSection(type, new OrganizationSection(orgs));
+                }
             }
         }
         storage.update(resume);
         response.sendRedirect("resume");
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String uuid = request.getParameter("uuid");
