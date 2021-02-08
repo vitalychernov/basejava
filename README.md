@@ -1,4 +1,4 @@
-## Development of Web application "Resume Database"
+# Development of Web application "Resume Database"
 
   - **Technology Stack:** Java 8, GitHub/Git, JUnit, Logging, GSON, JAXB, SQL, PostgreSQL, Servlets, HTML, JSP, JSTL, Tomcat, Maven, etc.
   
