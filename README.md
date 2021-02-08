@@ -10,7 +10,7 @@
 		- Standard and Custom Java Serialization
 		- JSON format (Google Gson)
 		- XML format (JAXB)
-	 - PostgreSQL relational database
+     - PostgreSQL relational database
 	 
   - **Web Application Deployment:**
 		- Tomcat servlet container
