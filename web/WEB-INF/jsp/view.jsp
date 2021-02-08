@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <jsp:useBean id="resume" type="com.javaops.webapp.model.Resume" scope="request"/>
-    <title>Резюме ${resume.fullName}</title>
+    <title>Resume ${resume.fullName}</title>
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
@@ -85,7 +85,7 @@
         </c:forEach>
     </table>
     <br/>
-    <button onclick="window.history.back()">Назад</button>
+    <button onclick="window.history.back()">Back</button>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

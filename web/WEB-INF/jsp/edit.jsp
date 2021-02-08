@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <jsp:useBean id="resume" type="com.javaops.webapp.model.Resume" scope="request"/>
-    <title>Резюме ${resume.fullName}</title>
+    <title>Resume ${resume.fullName}</title>
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
@@ -17,20 +17,20 @@
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="uuid" value="${resume.uuid}">
         <dl>
-            <dt>Имя:</dt>
+            <dt>Name:</dt>
             <dd><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
         </dl>
-        <h3>Контакты:</h3>
+        <h3>Contacts:</h3>
         <c:forEach var="type" items="<%=ContactType.values()%>">
             <dl>
                 <dt>${type.title}</dt>
-                <dd><input type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
+                <dd><input type="text" name="${type.name()}" size=50 value="${resume.getContact(type)}"></dd>
             </dl>
         </c:forEach>
-        <h3>Секции:</h3>
+        <h3>Sections:</h3>
         <c:forEach var="type" items="<%=SectionType.values()%>">
             <jsp:useBean id="type" type="com.javaops.webapp.model.SectionType"/>
-            ${type.title}
+            <h4>${type.title}</h4>
             <c:choose>
                 <c:when test="${type=='POSITION' || type == 'PERSONAL'}">
                     <dl>
@@ -52,11 +52,11 @@
                     <c:forEach var="org" items="<%=HtmlUtil.getOrganizations(type, resume)%>"
                                varStatus="counter">
                         <dl>
-                            <dt>Название учреждения:</dt>
+                            <dt>Organization name:</dt>
                             <dd><input type="text" name='${type}' size=100 value="${org.webSite.name}"></dd>
                         </dl>
                         <dl>
-                            <dt>Сайт учреждения:</dt>
+                            <dt>Organization website:</dt>
                             <dd><input type="text" name='${type}url' size=100 value="${org.webSite.url}"></dd>
                             </dd>
                         </dl>
@@ -65,25 +65,25 @@
                             <c:forEach var="pos" items="${org.positions}">
                                 <jsp:useBean id="pos" type="com.javaops.webapp.model.Organization.Position"/>
                                 <dl>
-                                    <dt>Начальная дата:</dt>
+                                    <dt>Start Date:</dt>
                                     <dd>
                                         <input type="text" name="${type}${counter.index}startDate" size=10
                                                value="<%=DateUtil.format(pos.getStartDate())%>" placeholder="MM/yyyy">
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>Конечная дата:</dt>
+                                    <dt>End Date:</dt>
                                     <dd>
                                         <input type="text" name="${type}${counter.index}endDate" size=10
                                                value="<%=DateUtil.format(pos.getEndDate())%>" placeholder="MM/yyyy">
                                 </dl>
                                 <dl>
-                                    <dt>Должность:</dt>
+                                    <dt>Position:</dt>
                                     <dd><input type="text" name='${type}${counter.index}title' size=75
                                                value="${pos.title}">
                                 </dl>
                                 <dl>
-                                    <dt>Описание:</dt>
+                                    <dt>Description:</dt>
                                     <dd><textarea name="${type}${counter.index}description" rows=5
                                                   cols=75>${pos.description}</textarea></dd>
                                 </dl>
@@ -93,8 +93,8 @@
                 </c:when>
             </c:choose>
         </c:forEach>
-        <button type="submit">Сохранить</button>
-        <button type="reset" onclick="window.history.go(-1)">Отменить</button>
+        <button type="submit">Submit</button>
+        <button type="reset" onclick="window.history.go(-1)">Cancel</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>

@@ -6,14 +6,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/style.css">
-    <title>Список всех резюме</title>
+    <title>Resume Database</title>
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
+    <a href="resume?action=add"><img src="img/add.png" alt="Create New"></a>
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
-            <th>Имя</th>
+            <th>Name</th>
             <th>Email</th>
             <th></th>
             <th></th>

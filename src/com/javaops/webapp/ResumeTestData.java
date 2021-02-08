@@ -18,40 +18,67 @@ public class ResumeTestData {
     public static Resume R4;
 
     static {
-        R1 = new Resume(U1, "Григорий Кислин");
-        R2 = new Resume(U2, "Name2");
-        R3 = new Resume(U3, "Name3");
-        R4 = new Resume(U4, "Name4");
+        R1 = new Resume(U1, "Vitaly Chernov");
+        R2 = new Resume(U2, "Tom Smith");
+        R3 = new Resume(U3, "Name1");
+        R4 = new Resume(U4, "Name3");
 
-        R1.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        R1.addContact(ContactType.SKYPE, "grigory.kislin");
-        R1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        R1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        R1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        R1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        R1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
-
-        R1.addSection(SectionType.POSITION, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        R1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
-                "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
-                "Родной русский, английский \"upper intermediate\""));
-        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
-                "Java Online Projects",
+        R1.setContact(ContactType.PHONE, "786-495-3599");
+        R1.setContact(ContactType.EMAIL, "chernovitaly@gmail.com");
+        R1.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/vitaly-chernov/");
+        R1.setContact(ContactType.GITHUB, "https://github.com/vitalychernov/basejava");
+        R1.setSection(SectionType.POSITION, new TextSection("Java developer"));
+        R1.setSection(SectionType.QUALIFICATIONS, new ListSection(
+                "Java 8/11, Stream API, Collections, Multithreading",
+                "Git, Maven",
+                "JUnit (4-5), AssertJ",
+                "Spring (JDBC, ORM, Tx, Cache, Data JPA, MVC, Security, Test), Spring Boot",
+                "JPA/Hibernate",
+                "Tomcat, HTTP, REST (Postman, cURL)",
+                "XML, JSON (Jackson)",
+                "IntelliJ IDEA",
+                "SQL (Postgres, MySQL, HSQLDB, H2)",
+                "Basic level: HTML+CSS+JavaScript (JQuery, Ajax, Bootstrap), JSP/Freemarker",
+                "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
+                "Basic understanding of IP networking (routing and switching)",
+                "Basic knowledge of network technologies (TCP/IP, Ethernet, LAN, WAN, etc.)",
+                "Working knowledge of project management lifecycle, tools and techniques",
+                "Excellent analytical, problem-solving, and decision-making skills",
+                "Excellent collaboration and communication skills",
+                "English – fluent, Russian – native"));
+        R1.setSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
+                "Java Online Project",
                 "https://javaops.ru/", new Organization.Position(
-                LocalDate.of(2013, 10, 1),
-                "Автор проекта",
-                "Создание, организация и проведение Java онлайн проектов и стажировок."))));
-        R1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
-                "Coursera",
+                LocalDate.of(2020, 10, 1),
+                LocalDate.of(2021, 2, 1),
+                "Co-development",
+                "Developing Web App \"DataBase for Resumes\""))));
+
+        R2.setContact(ContactType.PHONE, "777-777-7777");
+        R2.setContact(ContactType.SKYPE, "Tom.Smith");
+        R2.setContact(ContactType.EMAIL, "Tom.Smith@gmail.com");
+        R2.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/Tom.Smith");
+        R2.setContact(ContactType.GITHUB, "https://github.com/Tom.Smith");
+        R2.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/Tom.Smith");
+        R2.setContact(ContactType.HOME_PAGE, "http://Tom.Smith.com/");
+
+        R2.setSection(SectionType.POSITION, new TextSection("Position"));
+        R2.setSection(SectionType.PERSONAL, new TextSection("Personal information"));
+        R2.setSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
+        R2.setSection(SectionType.QUALIFICATIONS, new ListSection("Skill1", "Skill2", "Skill3"));
+        R2.setSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization(
+                "Organization",
+                "https://organization.com/", new Organization.Position(
+                LocalDate.of(2020, 1, 1),
+                "Position",
+                "Position description"))));
+        R2.setSection(SectionType.EDUCATION, new OrganizationSection(new Organization(
+                "Harvard",
                 null, new Organization.Position(
-                LocalDate.of(2013, 3, 1),
-                LocalDate.of(2013, 5, 1),
-                "Functional Programming Principles in Scala\" by Martin Odersky",
+                LocalDate.of(2016, 3, 1),
+                LocalDate.of(2020, 5, 1),
+                "Computer Since",
                 null))));
-        R2.addContact(ContactType.SKYPE, "skype2");
-        R2.addContact(ContactType.PHONE, "22222");
     }
 
     public static void main(String[] args) {

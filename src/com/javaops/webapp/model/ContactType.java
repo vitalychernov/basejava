@@ -1,38 +1,38 @@
 package com.javaops.webapp.model;
 
 public enum ContactType {
-    PHONE("Тел."),
+    PHONE("Phone"),
     SKYPE("Skype") {
         @Override
         public String toHtml0(String value) {
             return getTitle() + ": " + toLink("skype:" + value, value);
         }
     },
-    EMAIL("Почта") {
+    EMAIL("Email") {
         @Override
         public String toHtml0(String value) {
             return toLink("mailto:" + value, value);
         }
     },
-    LINKEDIN("Профиль LinkedIn") {
+    LINKEDIN("LinkedIn") {
         @Override
         public String toHtml0(String value) {
             return toLink(value);
         }
     },
-    GITHUB("Профиль GitHub") {
+    GITHUB("GitHub") {
         @Override
         public String toHtml0(String value) {
             return toLink(value);
         }
     },
-    STACKOVERFLOW("Профиль Stackoverflow") {
+    STACKOVERFLOW("Stackoverflow") {
         @Override
         public String toHtml0(String value) {
             return toLink(value);
         }
     },
-    HOME_PAGE("Домашняя страница") {
+    HOME_PAGE("Home page") {
         @Override
         public String toHtml0(String value) {
             return toLink(value);

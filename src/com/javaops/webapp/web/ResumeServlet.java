@@ -29,21 +29,29 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-        Resume resume = storage.get(uuid);
-        resume.setFullName(fullName);
+
+        final boolean isCreate = (uuid == null || uuid.length() == 0);
+        Resume resume;
+        if (isCreate) {
+            resume = new Resume(fullName);
+        } else {
+            resume = storage.get(uuid);
+            resume.setFullName(fullName);
+        }
+
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (HtmlUtil.isEmpty(value)) {
                 resume.getContacts().remove(type);
             } else {
-                resume.addContact(type, value);
+                resume.setContact(type, value);
             }
         }
         for (SectionType type : SectionType.values()) {
             String value = request.getParameter(type.name());
             String[] values = request.getParameterValues(type.name());
 
-            String notNullValue = value.replaceAll("\r", "");
+            String notNullValue = value.replaceAll("\resume", "");
             List<String> notNullValues = new ArrayList<>();
             for (String s : notNullValue.split("\n")) {
                 if (s.trim().length() > 0) {
@@ -55,8 +63,8 @@ public class ResumeServlet extends HttpServlet {
                 resume.getSections().remove(type);
             }
             switch (type) {
-                case POSITION, PERSONAL -> resume.addSection(type, new TextSection(value));
-                case ACHIEVEMENT, QUALIFICATIONS -> resume.addSection(type, new ListSection(notNullValues));
+                case POSITION, PERSONAL -> resume.setSection(type, new TextSection(value));
+                case ACHIEVEMENT, QUALIFICATIONS -> resume.setSection(type, new ListSection(notNullValues));
                 case EDUCATION, EXPERIENCE -> {
                     List<Organization> orgs = new ArrayList<>();
                     String[] urls = request.getParameterValues(type.name() + "url");
@@ -77,11 +85,15 @@ public class ResumeServlet extends HttpServlet {
                             orgs.add(new Organization(new Link(name, urls[i]), positions));
                         }
                     }
-                    resume.addSection(type, new OrganizationSection(orgs));
+                    resume.setSection(type, new OrganizationSection(orgs));
                 }
             }
         }
-        storage.update(resume);
+        if (isCreate) {
+            storage.save(resume);
+        } else {
+            storage.update(resume);
+        }
         response.sendRedirect("resume");
     }
 
@@ -101,6 +113,7 @@ public class ResumeServlet extends HttpServlet {
                 response.sendRedirect("resume");
                 return;
             }
+            case "add" -> resume = Resume.EMPTY;
             case "view" -> resume = storage.get(uuid);
             case "edit" -> {
                 resume = storage.get(uuid);
@@ -116,7 +129,7 @@ public class ResumeServlet extends HttpServlet {
                             emptyFirstOrganizations.add(new Organization(org.getWebSite(), emptyFirstPositions));
                         }
                     }
-                    resume.addSection(type, new OrganizationSection(emptyFirstOrganizations));
+                    resume.setSection(type, new OrganizationSection(emptyFirstOrganizations));
                 }
             }
             default -> throw new IllegalArgumentException("Action " + action + " is illegal");
