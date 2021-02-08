@@ -1,8 +1,9 @@
-## Development of Web application "Resume Database"
+# Development of Web application "Resume Database"
 
-  - **Technology Stack:** Java 8, GitHub/Git, JUnit, Logging, GSON, JAXB, SQL, PostgreSQL, Servlets, HTML, JSP, JSTL, Tomcat, Maven, etc.
+  - ##Technology Stack:## 
+  	Java 8, GitHub/Git, JUnit, Logging, GSON, JAXB, SQL, PostgreSQL, Servlets, HTML, JSP, JSTL, Tomcat, Maven, etc.
   
-  - **Different ways of saving resume in storage:**
+  - ##Different ways of saving resume in storage:
      - sorted and unsorted Array
      - collections (List, Map)
      - in a filesystem:
@@ -12,6 +13,6 @@
 		- XML format (JAXB)
 	 - PostgreSQL relational database
 	 
-  - **Web Application Deployment:**
+  - ##Web Application Deployment:
 		- Tomcat servlet container
 		- Heroku cloud service
