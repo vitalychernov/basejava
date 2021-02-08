@@ -3,7 +3,7 @@
   - **Technology Stack:** Java 8, GitHub/Git, JUnit, Logging, GSON, JAXB, SQL, PostgreSQL, Servlets, HTML, JSP, JSTL, Tomcat, Maven, etc.
   
   - **Different ways of saving resume in storage:**
-     - sorted and unsorted Array
+     - Sorted and unsorted Array
      - collections (List, Map)
      - in a filesystem:
 		- File and Path API
