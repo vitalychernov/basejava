@@ -20,7 +20,7 @@ public class Resume implements Comparable<Resume>, Serializable {
     public static final Resume EMPTY = new Resume();
 
     static {
-        EMPTY.setSection(SectionType.POSITION, TextSection.EMPTY);
+        EMPTY.setSection(SectionType.OBJECTIVE, TextSection.EMPTY);
         EMPTY.setSection(SectionType.PERSONAL, TextSection.EMPTY);
         EMPTY.setSection(SectionType.ACHIEVEMENT, ListSection.EMPTY);
         EMPTY.setSection(SectionType.QUALIFICATIONS, ListSection.EMPTY);
@@ -30,10 +30,11 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     // Unique identifier
     private String uuid;
+
     private String fullName;
 
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {
     }
@@ -47,22 +48,6 @@ public class Resume implements Comparable<Resume>, Serializable {
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-    }
-
-    public void setContact(ContactType type, String value) {
-        contacts.put(type, value);
-    }
-
-    public void setSection(SectionType type, AbstractSection section) {
-        sections.put(type, section);
-    }
-
-    public String getContact(ContactType type) {
-        return contacts.get(type);
-    }
-
-    public AbstractSection getSection(SectionType type) {
-        return sections.get(type);
     }
 
     public String getUuid() {
@@ -81,8 +66,24 @@ public class Resume implements Comparable<Resume>, Serializable {
         return contacts;
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
+    public Map<SectionType, Section> getSections() {
         return sections;
+    }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public Section getSection(SectionType type) {
+        return sections.get(type);
+    }
+
+    public void setContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void setSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     @Override
@@ -90,10 +91,10 @@ public class Resume implements Comparable<Resume>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return uuid.equals(resume.uuid) &&
-                fullName.equals(resume.fullName) &&
-                contacts.equals(resume.contacts) &&
-                sections.equals(resume.sections);
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
@@ -102,11 +103,13 @@ public class Resume implements Comparable<Resume>, Serializable {
     }
 
     @Override
+    public String toString() {
+        return uuid + '(' + fullName + ')';
+    }
+
+    @Override
     public int compareTo(Resume o) {
-        int compare = fullName.compareTo(o.fullName);
-        if (compare == 0) {
-            return uuid.compareTo(o.getUuid());
-        }
-        return compare;
+        int cmp = fullName.compareTo(o.fullName);
+        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
     }
 }

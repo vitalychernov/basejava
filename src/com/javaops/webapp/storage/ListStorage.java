@@ -6,55 +6,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage<Integer> {
-
-    private List<Resume> storageList = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>(0);
 
     @Override
-    public Resume doGet(Integer searchKey) {
-        return storageList.get(searchKey);
+    public void clear() {
+        storage.clear();
     }
 
     @Override
-    public void doUpdate(Resume resume, Integer searchKey) {
-        storageList.set(searchKey, resume);
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(storage);
     }
 
     @Override
     public int size() {
-        return storageList.size();
+        return storage.size();
     }
 
     @Override
-    public void clear() {
-        storageList.clear();
+    protected void doUpdate(Resume r, Integer index) {
+        storage.set(index, r);
     }
 
     @Override
-    public void doSave(Resume resume, Integer searchKey) {
-        storageList.add(resume);
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     @Override
-    public void doDelete(Integer searchKey) {
-        storageList.remove(searchKey.intValue());
-    }
-
-    @Override
-    protected List<Resume> doGetAll() {
-        return new ArrayList<>(storageList);
-    }
-
-    protected Integer getKey(String uuid) {
-        for (int i = 0; i < storageList.size(); i++) {
-            if (storageList.get(i).getUuid().equals(uuid)) {
+    protected Integer getSearchKey(String uuid) {
+        if (uuid == null) return -1;
+        for (int i = 0; i < storage.size(); i++){
+            if (uuid.equals((storage.get(i).getUuid()))){
                 return i;
             }
         }
-        return null;
+        return -1;
     }
 
     @Override
-    protected boolean isExist(Integer searchKey) {
-        return searchKey != null;
+    protected void doSave(Resume r, Integer index) {
+        storage.add(r);
+    }
+
+    @Override
+    protected void doDelete(Integer index) {
+        storage.remove(index.intValue());
+    }
+
+    @Override
+    protected Resume doGet(Integer index) {
+        return storage.get(index);
     }
 }

@@ -4,15 +4,12 @@ import com.javaops.webapp.model.Resume;
 
 import java.util.List;
 
-/**
- * Array based storage for Resumes
- */
 public interface Storage {
-    void update(Resume resume);
-
     void clear();
 
-    void save(Resume resume);
+    void update(Resume r);
+
+    void save(Resume r);
 
     Resume get(String uuid);
 

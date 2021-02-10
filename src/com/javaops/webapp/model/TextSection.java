@@ -2,40 +2,44 @@ package com.javaops.webapp.model;
 
 import java.util.Objects;
 
-public class TextSection extends AbstractSection {
+public class TextSection extends Section {
+
     private static final long serialVersionUID = 1L;
 
     public static final TextSection EMPTY = new TextSection("");
 
-    private String text;
+    private String content;
 
     public TextSection() {
     }
 
-    public TextSection(String text) {
-        Objects.requireNonNull(text, "text must not be null");
-        this.text = text;
+    public TextSection(String content) {
+        Objects.requireNonNull(content, "content must not be null");
+        this.content = content;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public String toString() {
+        return content;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         TextSection that = (TextSection) o;
-        return text.equals(that.text);
+
+        return content.equals(that.content);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text);
-    }
-
-    @Override
-    public String toString() {
-        return text;
+        return content.hashCode();
     }
 }
