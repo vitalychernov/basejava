@@ -6,7 +6,7 @@
    -  Collections (List, Map)
    -  In a filesystem:
       - File and Path API
-      - Standard and Custom Java Serialization
+      - Standard and Custom Java StreamSerializer
       - JSON format (Google Gson)
       - XML format (JAXB)
    -  PostgreSQL relational database
@@ -14,4 +14,4 @@
    - Tomcat servlet container
    - Heroku cloud service
 ## Link to the Web App in a Cloud Service
-   Ознакомиться с проектом можно здесь
+   Ознакомиться с проектом можно здес

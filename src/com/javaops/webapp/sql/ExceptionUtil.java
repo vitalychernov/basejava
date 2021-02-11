@@ -1,8 +1,8 @@
 package com.javaops.webapp.sql;
 
+import org.postgresql.util.PSQLException;
 import com.javaops.webapp.exception.ExistStorageException;
 import com.javaops.webapp.exception.StorageException;
-import org.postgresql.util.PSQLException;
 
 import java.sql.SQLException;
 

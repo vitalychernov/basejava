@@ -1,13 +1,13 @@
 package util;
 
-import com.javaops.webapp.model.AbstractSection;
+import com.javaops.webapp.model.Section;
 import com.javaops.webapp.model.Resume;
 import com.javaops.webapp.model.TextSection;
 import com.javaops.webapp.util.JsonParser;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.javaops.webapp.ResumeTestData.R1;
+import static com.javaops.webapp.TestData.R1;
 
 public class JsonParserTest {
     @Test
@@ -20,10 +20,10 @@ public class JsonParserTest {
 
     @Test
     public void write() throws Exception {
-        AbstractSection section1 = new TextSection("Objective1");
-        String json = JsonParser.write(section1, AbstractSection.class);
+        Section section1 = new TextSection("Objective1");
+        String json = JsonParser.write(section1, Section.class);
         System.out.println(json);
-        AbstractSection section2 = JsonParser.read(json, AbstractSection.class);
+        Section section2 = JsonParser.read(json, Section.class);
         Assert.assertEquals(section1, section2);
     }
 }

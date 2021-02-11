@@ -2,54 +2,56 @@ package com.javaops.webapp.storage;
 
 import com.javaops.webapp.model.Resume;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapResumeStorage extends AbstractStorage<Resume> {
-
-    private Map<String, Resume> storageMap = new HashMap<>();
+    private Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected void doDelete(Resume searchKey) {
-        storageMap.remove(searchKey.getUuid());
+    protected Resume getSearchKey(String uuid) {
+        return map.get(uuid);
     }
 
     @Override
-    protected void doSave(Resume resume, Resume searchKey) {
-        storageMap.put(resume.getUuid(), resume);
+    protected void doUpdate(Resume r, Resume resume) {
+        map.put(r.getUuid(), r);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Resume searchKey) {
-        storageMap.put(resume.getUuid(), resume);
+    protected boolean isExist(Resume resume) {
+        return resume != null;
     }
 
     @Override
-    protected Resume doGet(Resume searchKey) {
-        return searchKey;
+    protected void doSave(Resume r, Resume resume) {
+        map.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume getKey(String searchKey) {
-        return storageMap.get(searchKey);
+    protected Resume doGet(Resume resume) {
+        return resume;
     }
 
     @Override
-    protected boolean isExist(Resume searchKey) {
-        return searchKey != null;
+    protected void doDelete(Resume resume) {
+        map.remove(resume.getUuid());
     }
 
     @Override
     public void clear() {
-        storageMap.clear();
+        map.clear();
     }
 
     @Override
-    protected List<Resume> doGetAll() {
-        return new ArrayList<>(storageMap.values());
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public int size() {
-        return storageMap.size();
+        return map.size();
     }
 }

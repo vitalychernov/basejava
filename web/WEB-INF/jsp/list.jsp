@@ -11,8 +11,9 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
-    <a href="resume?action=add"><img src="img/add.png" alt="Create New"></a>
-    <table border="1" cellpadding="8" cellspacing="0">
+    <a href="resume?action=add"><img src="img/add.png"></a>
+    <br>
+    <table border="1" cellpadding="8" cellspacing="0" style="margin: auto">
         <tr>
             <th>Name</th>
             <th>Email</th>
@@ -23,10 +24,9 @@
             <jsp:useBean id="resume" type="com.javaops.webapp.model.Resume"/>
             <tr>
                 <td><a href="resume?uuid=${resume.uuid}&action=view">${resume.fullName}</a></td>
-                <td><%=ContactType.EMAIL.toHtml(resume.getContact(ContactType.EMAIL))%>
-                </td>
-                <td><a href="resume?uuid=${resume.uuid}&action=delete"><img src="img/delete.png" alt="Delete"></a></td>
-                <td><a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png" alt="Edit"></a></td>
+                <td><%=ContactType.EMAIL.toHtml(resume.getContact(ContactType.EMAIL))%></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=delete"><img src="img/delete.png"></a></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></td>
             </tr>
         </c:forEach>
     </table>

@@ -1,14 +1,14 @@
 package com.javaops.webapp.model;
 
 public enum SectionType {
-    POSITION("Objective"),
+    OBJECTIVE("Objective"),
     PERSONAL("Personal"),
     ACHIEVEMENT("Achievement"),
     QUALIFICATIONS("Skills"),
     EXPERIENCE("Experience"),
     EDUCATION("Education");
 
-    private final String title;
+    private String title;
 
     SectionType(String title) {
         this.title = title;

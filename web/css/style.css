@@ -1,25 +1,23 @@
 section {
     width: 900px;
-    margin: 20px 0 0 100px;
-}
-
-table {
-    margin-top: 15px;
+    margin: auto;
 }
 
 header {
     background: none repeat scroll 0 0 #A6C9E2;
     color: #2E6E9E;
     font-size: 20px;
-    padding: 5px 50px;
+    padding: 5px 20px;
+    text-align: center;
 }
 
 footer {
     background: none repeat scroll 0 0 #A6C9E2;
     color: #2E6E9E;
     font-size: 20px;
-    padding: 5px 50px;
+    padding: 5px 20px;
     margin: 20px 0;
+    text-align: center;
 }
 
 dl {
@@ -39,12 +37,12 @@ dd {
     vertical-align: top;
 }
 
-h2, h3, h4 {
-    margin: 5px 0 5px;
+h2, h3 {
+    margin: 15px 0 5px;
 }
 
 li {
-    margin: 5px 0;
+    margin: 15px 0;
 }
 
 a[href^="skype:"] {
