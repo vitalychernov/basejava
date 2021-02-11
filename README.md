@@ -13,5 +13,5 @@
 ## Web Application Deployment
    - Tomcat servlet container
    - Heroku cloud service
-## Link to the Web App in a Cloud Service
-   Ознакомиться с проектом можно здес
+## Link to the Web App in a Cloud Service Heroku
+### <a href="http://resumelight.herokuapp.com/">Resume Database</a>
