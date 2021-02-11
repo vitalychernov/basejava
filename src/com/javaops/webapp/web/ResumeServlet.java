@@ -50,20 +50,22 @@ public class ResumeServlet extends HttpServlet {
         for (SectionType type : SectionType.values()) {
             String value = request.getParameter(type.name());
             String[] values = request.getParameterValues(type.name());
+
+            String notNullValue = value.replaceAll("\resume", "");
+            List<String> notNullValues = new ArrayList<>();
+            for (String s : notNullValue.split("\n")) {
+                if (s.trim().length() > 0) {
+                    notNullValues.add(s);
+                }
+            }
+
             if (HtmlUtil.isEmpty(value) && values.length < 2) {
                 r.getSections().remove(type);
             } else {
                 switch (type) {
-                    case OBJECTIVE:
-                    case PERSONAL:
-                        r.setSection(type, new TextSection(value));
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        r.setSection(type, new ListSection(value.split("\\n")));
-                        break;
-                    case EDUCATION:
-                    case EXPERIENCE:
+                    case OBJECTIVE, PERSONAL -> r.setSection(type, new TextSection(value));
+                    case ACHIEVEMENT, QUALIFICATIONS -> r.setSection(type, new ListSection(notNullValues));
+                    case EDUCATION, EXPERIENCE -> {
                         List<Organization> orgs = new ArrayList<>();
                         String[] urls = request.getParameterValues(type.name() + "url");
                         for (int i = 0; i < values.length; i++) {
@@ -84,7 +86,7 @@ public class ResumeServlet extends HttpServlet {
                             }
                         }
                         r.setSection(type, new OrganizationSection(orgs));
-                        break;
+                    }
                 }
             }
         }
@@ -106,17 +108,14 @@ public class ResumeServlet extends HttpServlet {
         }
         Resume r;
         switch (action) {
-            case "delete":
+            case "delete" -> {
                 storage.delete(uuid);
                 response.sendRedirect("resume");
                 return;
-            case "view":
-                r = storage.get(uuid);
-                break;
-            case "add":
-                r = Resume.EMPTY;
-                break;
-            case "edit":
+            }
+            case "view" -> r = storage.get(uuid);
+            case "add" -> r = Resume.EMPTY;
+            case "edit" -> {
                 r = storage.get(uuid);
                 for (SectionType type : SectionType.values()) {
                     Section section = r.getSection(type);
@@ -151,9 +150,8 @@ public class ResumeServlet extends HttpServlet {
                     }
                     r.setSection(type, section);
                 }
-                break;
-            default:
-                throw new IllegalArgumentException("Action " + action + " is illegal");
+            }
+            default -> throw new IllegalArgumentException("Action " + action + " is illegal");
         }
         request.setAttribute("resume", r);
         request.getRequestDispatcher(
