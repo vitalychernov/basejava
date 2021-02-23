@@ -13,5 +13,5 @@
 ## Web Application Deployment
    - Tomcat servlet container
    - Heroku cloud service
-## Link to the Web App in a Cloud Service Heroku
+## Live Demo
 ### <a href="http://resumedbapp.herokuapp.com/">Resume Database</a>
